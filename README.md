@@ -103,6 +103,16 @@ const db = app.firestore;
 firebaseFunctionsHelper.updateDocument(db, 'collection-name', 'document-id', data);
 ```
 
+### Delete a document
+
+```
+// Initialize Firebase App
+const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+
+const db = app.firestore;
+firebaseFunctionsHelper.deleteDocument(db, 'collection-name', 'document-id');
+```
+
 ## Contributions
 
 This project is based on [firebase-functions-snippets](https://github.com/dalenguyen/firebase-functions-snippets), feel free to report bugs and make feature requests in the [Issue Tracker](https://github.com/dalenguyen/firebase-functions-helper/issues), fork and create pull requests!

@@ -11,7 +11,7 @@ var serviceAccount = require('./serviceAccountKey.json');
 //     })
 // })
 
-let app = firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+// let app = firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
 // // Data backup test
 // var result = firebaseFunctionsHelper.backup('test', 'sub');
 // result.then(data => console.log(data))
@@ -21,10 +21,14 @@ let app = firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-f
 
 
 // Write data to firestore
-const db = app.firestore;
+// const db = app.firestore;
 // firebaseFunctionsHelper.createDocumentWithId(db, 'test2', '1', {test: true});
 
 // Create new document without id
 // firebaseFunctionsHelper.createNewDocument(db, 'test2', {test: true});
 
-firebaseFunctionsHelper.updateDocument(db, 'test2', '3', {test: true});
+// Update a document
+// firebaseFunctionsHelper.updateDocument(db, 'test2', '3', {test: true});
+
+// Delete a document
+// firebaseFunctionsHelper.deleteDocument(db, 'test2', 'tts');
