@@ -19,12 +19,22 @@ After that you need to copy the __databaseURL__ for initiating the App.
 
 ### Initialize Firebase App
 
+This is the first step that you need to do before doing any other actions.
+
 ```
 const firebaseFunctionsHelper = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
 firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+```
+
+### Get Firestore Collection with Sub Collection
+
+```
+// Start exporting your collection
+var result = firebaseFunctionsHelper.backup('collection-name', 'sub-collection-optional');
+result.then(data => console.log(data))
 ```
 
 ## Contributions
