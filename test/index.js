@@ -25,4 +25,6 @@ const db = app.firestore;
 // firebaseFunctionsHelper.createDocumentWithId(db, 'test2', '1', {test: true});
 
 // Create new document without id
-firebaseFunctionsHelper.createNewDocument(db, 'test2', {test: true});
+// firebaseFunctionsHelper.createNewDocument(db, 'test2', {test: true});
+
+firebaseFunctionsHelper.updateDocument(db, 'test2', '3', {test: true});

@@ -91,6 +91,18 @@ const db = app.firestore;
 firebaseFunctionsHelper.createNewDocument(db, 'collection-name', data);
 ```
 
+### Update a document
+
+This action will only update the current key inside the document, if the data doesn't exist, it will create a new one. However, it will not create a new document if the document doesn't exist in the first place.
+
+```
+// Initialize Firebase App
+const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+
+const db = app.firestore;
+firebaseFunctionsHelper.updateDocument(db, 'collection-name', 'document-id', data);
+```
+
 ## Contributions
 
 This project is based on [firebase-functions-snippets](https://github.com/dalenguyen/firebase-functions-snippets), feel free to report bugs and make feature requests in the [Issue Tracker](https://github.com/dalenguyen/firebase-functions-helper/issues), fork and create pull requests!
