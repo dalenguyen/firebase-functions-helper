@@ -22,4 +22,7 @@ let app = firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-f
 
 // Write data to firestore
 const db = app.firestore;
-firebaseFunctionsHelper.createDocumentWithId(db, 'test2', '1', {test: true});
+// firebaseFunctionsHelper.createDocumentWithId(db, 'test2', '1', {test: true});
+
+// Create new document without id
+firebaseFunctionsHelper.createNewDocument(db, 'test2', {test: true});

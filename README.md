@@ -81,6 +81,16 @@ const db = app.firestore;
 firebaseFunctionsHelper.createDocumentWithId(db, 'collection-name', 'document-id', data);
 ```
 
+### Create a new document without an ID
+
+```
+// Initialize Firebase App
+const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+
+const db = app.firestore;
+firebaseFunctionsHelper.createNewDocument(db, 'collection-name', data);
+```
+
 ## Contributions
 
 This project is based on [firebase-functions-snippets](https://github.com/dalenguyen/firebase-functions-snippets), feel free to report bugs and make feature requests in the [Issue Tracker](https://github.com/dalenguyen/firebase-functions-helper/issues), fork and create pull requests!
