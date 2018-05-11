@@ -14,3 +14,5 @@ var serviceAccount = require('./serviceAccountKey.json');
 // firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
 // var result = firebaseFunctionsHelper.backup('test', 'sub');
 // result.then(data => console.log(data))
+
+// var result = firebaseFunctionsHelper.restore('import-to-firestore.json');
