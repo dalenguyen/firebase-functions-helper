@@ -32,8 +32,12 @@ firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
 ### Get Firestore Collection with Sub Collection
 
 ```
+// Initialize Firebase App
+const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const db = app.firestore;
+
 // Start exporting your collection
-var result = firebaseFunctionsHelper.backup('collection-name', 'sub-collection-optional');
+var result = firebaseFunctionsHelper.backup(db, 'collection-name', 'sub-collection-optional');
 result.then(data => console.log(data))
 ```
 
@@ -42,8 +46,12 @@ result.then(data => console.log(data))
 This code will help you to import data from a JSON file to firestore
 
 ```
+// Initialize Firebase App
+const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const db = app.firestore;
+
 // Start exporting your data
-firebaseFunctionsHelper.restore('your-file-path.json');
+firebaseFunctionsHelper.restore(db, 'your-file-path.json');
 ```
 
 The JSON is formated as below. The collection name is __test__. __first-key__ and __second-key__ are document ids. 
