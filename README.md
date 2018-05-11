@@ -15,6 +15,18 @@ You can __Generate New Private Key__ from Project Settings from [Firebase Consol
 
 After that you need to copy the __databaseURL__ for initiating the App. 
 
+## Usage 
+
+### Initialize Firebase App
+
+```
+const firebaseFunctionsHelper = require('firebase-functions-helper');
+const serviceAccount = require('./serviceAccountKey.json');
+
+// Initialize Firebase App
+firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+```
+
 ## Contributions
 
 This project is based on [firebase-functions-snippets](https://github.com/dalenguyen/firebase-functions-snippets), feel free to report bugs and make feature requests in the [Issue Tracker](https://github.com/dalenguyen/firebase-functions-helper/issues), fork and create pull requests!
