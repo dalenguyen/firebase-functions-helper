@@ -11,8 +11,15 @@ var serviceAccount = require('./serviceAccountKey.json');
 //     })
 // })
 
-// firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+let app = firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+// // Data backup test
 // var result = firebaseFunctionsHelper.backup('test', 'sub');
 // result.then(data => console.log(data))
 
+// // Data restore test
 // var result = firebaseFunctionsHelper.restore('import-to-firestore.json');
+
+
+// Write data to firestore
+const db = app.firestore;
+firebaseFunctionsHelper.createDocumentWithId(db, 'test2', '1', {test: true});

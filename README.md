@@ -71,6 +71,16 @@ The JSON is formated as below. The collection name is __test__. __first-key__ an
 }
 ```
 
+### Create a document with id in firestore
+
+```
+// Initialize Firebase App
+const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+
+const db = app.firestore;
+firebaseFunctionsHelper.createDocumentWithId(db, 'collection-name', 'document-id', data);
+```
+
 ## Contributions
 
 This project is based on [firebase-functions-snippets](https://github.com/dalenguyen/firebase-functions-snippets), feel free to report bugs and make feature requests in the [Issue Tracker](https://github.com/dalenguyen/firebase-functions-helper/issues), fork and create pull requests!
