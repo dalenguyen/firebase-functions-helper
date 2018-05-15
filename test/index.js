@@ -1,37 +1,41 @@
 'use strict';
 var expect = require('chai').expect;
-var firebaseFunctionsHelper = require('../lib/index.js');
+var firebaseHelper = require('../dist/index.js');
 
 var serviceAccount = require('./serviceAccountKey.json');
 
 // describe('initializeApp test', () => {
 //     it('should return true', () => {
-//         var result = firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+//         var result = firebaseHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
 //         expect(result).to.equal(true);
 //     })
 // })
 
-let app = firebaseFunctionsHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+let app = firebaseHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
 // Data backup test
 const db = app.firestore;
 // console.log(db);
 
-// var result = firebaseFunctionsHelper.backup(db, 'test', 'sub');
-// result.then(data => console.log(data))
+// var result = firebaseHelper.firestoreBackup(db, 'test', 'sub');
+// result.then(data => console.log(JSON.stringify(data)))
 
-// // Data restore test
-var result = firebaseFunctionsHelper.restore(db, 'test/import-to-firestore.json');
+// Data restore test
+// var result = firebaseHelper.firestoreRestore(db, 'test/import-to-firestore.json');
 
 
 // Write data to firestore
 // const db = app.firestore;
-// firebaseFunctionsHelper.createDocumentWithId(db, 'test2', '1', {test: true});
+// firebaseHelper.firestoreCreateDocumentWithId(db, 'test2', '1', {test: true});
 
 // Create new document without id
-// firebaseFunctionsHelper.createNewDocument(db, 'test2', {test: true});
+// firebaseHelper.createNewDocument(db, 'test2', {test: true});
 
 // Update a document
-// firebaseFunctionsHelper.updateDocument(db, 'test2', '3', {test: true});
+// firebaseHelper.updateDocument(db, 'test2', '3', {test: true});
 
 // Delete a document
-// firebaseFunctionsHelper.deleteDocument(db, 'test2', 'tts');
+// firebaseHelper.deleteDocument(db, 'test2', 'tts');
+
+// Check where document exists
+let doc = firebaseHelper.firestoreCheckDocumentExists(db, 'test2', '1');
+doc.then(exists => console.log(exists));

@@ -19,26 +19,26 @@ After that you need to copy the __databaseURL__ for initiating the App.
 
 ### Initialize Firebase App
 
-This is the first step that you need to do before doing any other actions.
+This is the first step that you need to do before doing any other actions. You still can use the other methods from firebase helpers if you initialize the app by using other methods from Firebase docs.
 
 ```
-const firebaseFunctionsHelper = require('firebase-functions-helper');
+const firebaseHelper = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
-firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+firebaseHelper.initializeApp(serviceAccount, databaseURL);
 ```
 
 ### Get Firestore Collection with Sub Collection
 
 ```
 // Initialize Firebase App
-const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 const db = app.firestore;
 
 // Start exporting your collection
-var result = firebaseFunctionsHelper.backup(db, 'collection-name', 'sub-collection-optional');
-result.then(data => console.log(data))
+var result = firebaseHelper.firestoreBackup(db, 'collection-name', 'sub-collection-optional');
+result.then(data => console.log(JSON.stringify(data)))
 ```
 
 ### Import data to firestore 
@@ -47,11 +47,11 @@ This code will help you to import data from a JSON file to firestore
 
 ```
 // Initialize Firebase App
-const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 const db = app.firestore;
 
 // Start exporting your data
-firebaseFunctionsHelper.restore(db, 'your-file-path.json');
+firebaseHelper.firestoreRestore(db, 'your-file-path.json');
 ```
 
 The JSON is formated as below. The collection name is __test__. __first-key__ and __second-key__ are document ids. 
@@ -83,20 +83,20 @@ The JSON is formated as below. The collection name is __test__. __first-key__ an
 
 ```
 // Initialize Firebase App
-const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 
 const db = app.firestore;
-firebaseFunctionsHelper.createDocumentWithId(db, 'collection-name', 'document-id', data);
+firebaseHelper.firestoreCreateDocumentWithId(db, 'collection-name', 'document-id', data);
 ```
 
 ### Create a new document without an ID
 
 ```
 // Initialize Firebase App
-const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 
 const db = app.firestore;
-firebaseFunctionsHelper.createNewDocument(db, 'collection-name', data);
+firebaseHelper.firestoreCreateNewDocument(db, 'collection-name', data);
 ```
 
 ### Update a document
@@ -105,20 +105,33 @@ This action will only update the current key inside the document, if the data do
 
 ```
 // Initialize Firebase App
-const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 
 const db = app.firestore;
-firebaseFunctionsHelper.updateDocument(db, 'collection-name', 'document-id', data);
+firebaseHelper.firestoreUpdateDocument(db, 'collection-name', 'document-id', data);
 ```
 
 ### Delete a document
 
 ```
 // Initialize Firebase App
-const app = firebaseFunctionsHelper.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 
 const db = app.firestore;
-firebaseFunctionsHelper.deleteDocument(db, 'collection-name', 'document-id');
+firebaseHelper.firestoreDeleteDocument(db, 'collection-name', 'document-id');
+```
+
+### Check whether a document exists
+
+This will return a Promise<boolean>
+
+```
+// Initialize Firebase App
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
+
+const db = app.firestore;
+const doc = firebaseHelper.firestoreCheckDocumentExists(db, 'collection-name', 'document-id');
+doc.then(exists => console.log(exists));
 ```
 
 ## Contributions

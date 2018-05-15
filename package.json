@@ -1,10 +1,11 @@
 {
   "name": "firebase-functions-helper",
-  "version": "0.2.1",
+  "version": "0.3.2",
   "description": "A helper NPM package for Firebase Cloud Functions",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -13,7 +14,7 @@
   "keywords": [
     "firebase",
     "cloud",
-    "functions",    
+    "functions",
     "functions",
     "helper"
   ],
@@ -27,10 +28,11 @@
     "node": ">=7.6.0"
   },
   "dependencies": {
-    "firebase-admin": "^5.12.0"    
+    "firebase-admin": "^5.12.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
-    "mocha": "^5.1.1"
+    "mocha": "^5.1.1",
+    "typescript": "^2.8.3"
   }
 }
