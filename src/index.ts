@@ -97,3 +97,16 @@ exports.firestoreDeleteDocument = function(db: any, collectionName: string, docI
 exports.firestoreCheckDocumentExists = function(db: any, collectionName: string, docId: string){
     return firestoreHelper.checkDocumentExists(db, collectionName, docId);
 }
+
+/**
+ * Query data from firestore
+ * 
+ * @param {*} db 
+ * @param {string} collectionName 
+ * @param {[any]} queryArray 
+ * @returns {Promise<any>} 
+ * @memberof FirestoreHelper
+ */
+exports.fireStoreQuery = function (db: any, collectionName: string, queryArray: [any]){
+    return firestoreHelper.queryData(db, collectionName, queryArray);
+}

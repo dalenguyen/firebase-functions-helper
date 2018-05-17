@@ -95,6 +95,38 @@ class FirestoreHelper {
         });
     }
     /**
+     * Query data from firestore
+     *
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {[any]} queryArray
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
+     */
+    queryData(db, collectionName, queryArray) {
+        return new Promise((resolve, reject) => {
+            let dataRef = db.collection(collectionName);
+            let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            let results = [];
+            queryRef.get()
+                .then(snapshot => {
+                snapshot.forEach(doc => {
+                    results[doc.id] = doc.data();
+                });
+                if (Object.keys(results).length > 0) {
+                    resolve(results);
+                }
+                else {
+                    resolve('No such document!');
+                }
+            })
+                .catch(err => {
+                reject(false);
+                console.log('Error getting documents', err);
+            });
+        });
+    }
+    /**
      * Backup data from firestore
      *
      * @param {string} collectionName

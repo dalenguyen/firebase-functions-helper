@@ -88,7 +88,40 @@ export class FirestoreHelper {
             .catch(err => {
                 console.log('Error getting document', err);
             });
-    }    
+    }
+
+    /**
+     * Query data from firestore
+     * 
+     * @param {*} db 
+     * @param {string} collectionName 
+     * @param {[any]} queryArray 
+     * @returns {Promise<any>} 
+     * @memberof FirestoreHelper
+     */
+    queryData(db: any, collectionName: string, queryArray: [any]): Promise<any>{
+        return new Promise((resolve, reject) => {
+            let dataRef = db.collection(collectionName);            
+            let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            let results = [];
+
+            queryRef.get()
+                .then(snapshot => {
+                    snapshot.forEach(doc => {                        
+                        results[doc.id] = doc.data();
+                    });                                                        
+                    if(Object.keys(results).length > 0){
+                        resolve(results);
+                    } else {
+                        resolve('No such document!');
+                    }                    
+                })
+                .catch(err => {
+                    reject(false);
+                    console.log('Error getting documents', err);
+                });
+        })
+    }
 
     /**
      * Backup data from firestore

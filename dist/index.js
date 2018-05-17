@@ -90,4 +90,16 @@ exports.firestoreDeleteDocument = function (db, collectionName, docId) {
 exports.firestoreCheckDocumentExists = function (db, collectionName, docId) {
     return firestoreHelper.checkDocumentExists(db, collectionName, docId);
 };
+/**
+ * Query data from firestore
+ *
+ * @param {*} db
+ * @param {string} collectionName
+ * @param {[any]} queryArray
+ * @returns {Promise<any>}
+ * @memberof FirestoreHelper
+ */
+exports.fireStoreQuery = function (db, collectionName, queryArray) {
+    return firestoreHelper.queryData(db, collectionName, queryArray);
+};
 //# sourceMappingURL=index.js.map

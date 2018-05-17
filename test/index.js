@@ -37,5 +37,10 @@ const db = app.firestore;
 // firebaseHelper.deleteDocument(db, 'test2', 'tts');
 
 // Check where document exists
-let doc = firebaseHelper.firestoreCheckDocumentExists(db, 'test2', '1');
-doc.then(exists => console.log(exists));
+// let doc = firebaseHelper.firestoreCheckDocumentExists(db, 'test2', '1');
+// doc.then(exists => console.log(exists));
+
+// Search for database 
+var query = ['website', '==', 'dalenguyen.me'];
+var queryResults = firebaseHelper.fireStoreQuery(db, 'test2', query);
+queryResults.then(docs => console.log(docs));
