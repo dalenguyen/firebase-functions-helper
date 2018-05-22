@@ -41,6 +41,21 @@ var result = firebaseHelper.firestoreBackup(db, 'collection-name', 'sub-collecti
 result.then(data => console.log(JSON.stringify(data)))
 ```
 
+With this feature you can get and loop through all of your documents from a collection
+
+```sh
+var result = firebaseHelper.firestoreBackup(db, 'collection-name');
+result.then(data => {    
+    let docs = data['collection-name'];
+    for (const key in docs) {
+        if (docs.hasOwnProperty(key)) {            
+            console.log('Doc id: ', key);
+            console.log('Document data: ', docs[key])                    
+        }
+    }
+})
+```
+
 ### Import data to firestore 
 
 This code will help you to import data from a JSON file to firestore

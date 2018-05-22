@@ -41,6 +41,18 @@ const db = app.firestore;
 // doc.then(exists => console.log(exists));
 
 // Search for database 
-var query = ['website', '==', 'dalenguyen.me'];
-var queryResults = firebaseHelper.fireStoreQuery(db, 'test2', query);
-queryResults.then(docs => console.log(docs));
+// var query = ['website', '==', 'dalenguyen.me'];
+// var queryResults = firebaseHelper.fireStoreQuery(db, 'test2', query);
+// queryResults.then(docs => console.log(docs));
+
+// Get all documents from a collection
+// var result = firebaseHelper.firestoreBackup(db, 'test2');
+// result.then(data => {    
+//     let docs = data['test2'];
+//     for (const key in docs) {
+//         if (docs.hasOwnProperty(key)) {            
+//             console.log('Doc id: ', key);
+//             console.log('Document data: ', docs[key])                    
+//         }
+//     }
+// })
