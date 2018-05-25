@@ -11,8 +11,8 @@ var serviceAccount = require('./serviceAccountKey.json');
 //     })
 // })
 
-// let app = firebaseHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
-// const db = app.firestore;
+let app = firebaseHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+const db = app.firestore;
 
 // // Data backup test
 // var result = firebaseHelper.firestore.backup(db, 'test', 'sub');
@@ -54,3 +54,7 @@ var serviceAccount = require('./serviceAccountKey.json');
 //         }
 //     }
 // })
+
+// // Get a document 
+// let result = firebaseHelper.firestore.getDocument(db, 'test2', 'first-key');
+// result.then(doc => console.log(doc));

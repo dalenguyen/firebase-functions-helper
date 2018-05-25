@@ -95,6 +95,30 @@ class FirestoreHelper {
         });
     }
     /**
+     * Get a document from document Id
+     *
+     * @param {any} db
+     * @param {string} collectionName
+     * @param {string} documentId
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
+     */
+    getDocument(db, collectionName, documentId) {
+        const docRef = db.collection(collectionName).doc(documentId);
+        return docRef.get().then(function (doc) {
+            if (doc.exists) {
+                return doc.data();
+            }
+            else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+                return false;
+            }
+        }).catch(function (error) {
+            console.log("Error getting document:", error);
+        });
+    }
+    /**
      * Query data from firestore
      *
      * @param {*} db

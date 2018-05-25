@@ -13,18 +13,27 @@ const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 const db = app.firestore;
 ```
 
-## 1. Get Firestore Collection with Sub Collection
+## 1. Get a Document
+
+The result will be a Promise that returns _content of a document_ or _false_ if document doesn't exist.
+
+```sh
+let result = firebaseHelper.firestore.getDocument(db, 'collection-name', 'document-id');
+result.then(doc => console.log(doc));
+```
+
+## 2. Get Firestore Collection with Sub Collection
 
 ```sh
 // Start exporting your collection
-var result = firebaseHelper.firestore.backup(db, 'collection-name', 'sub-collection-optional');
+let result = firebaseHelper.firestore.backup(db, 'collection-name', 'sub-collection-optional');
 result.then(data => console.log(JSON.stringify(data)))
 ```
 
 With this feature you can get and loop through all of your documents from a collection
 
 ```sh
-var result = firebaseHelper.firestore.backup(db, 'collection-name');
+let result = firebaseHelper.firestore.backup(db, 'collection-name');
 result.then(data => {    
     let docs = data['collection-name'];
     for (const key in docs) {
@@ -36,7 +45,7 @@ result.then(data => {
 })
 ```
 
-## 2. Import data to firestore 
+## 3. Import data to firestore 
 
 This code will help you to import data from a JSON file to firestore
 
@@ -70,19 +79,19 @@ The JSON is formated as below. The collection name is __test__. __first-key__ an
 }
 ```
 
-## 3. Create a document with id in firestore
+## 4. Create a document with id in firestore
 
 ```sh
 firebaseHelper.firestore.createDocumentWithID(db, 'collection-name', 'document-id', data);
 ```
 
-## 4. Create a new document without an ID
+## 5. Create a new document without an ID
 
 ```sh
 firebaseHelper.firestore.creatNewDocument(db, 'collection-name', data);
 ```
 
-## 5. Update a document
+## 6. Update a document
 
 This action will only update the current key inside the document, if the data doesn't exist, it will create a new one. However, it will not create a new document if the document doesn't exist in the first place.
 
@@ -91,13 +100,13 @@ let data = {key: value};
 firebaseHelper.firestore.updateDocument(db, 'collection-name', 'document-id', data);
 ```
 
-## 6. Delete a document
+## 7. Delete a document
 
 ```sh
 firebaseHelper.firestore.deleteDocument(db, 'collection-name', 'document-id');
 ```
 
-## 7. Check whether a document exists
+## 8. Check whether a document exists
 
 This will return a Promise<boolean>
 
@@ -106,7 +115,7 @@ const doc = firebaseHelper.firestore.checkDocumentExists(db, 'collection-name', 
 doc.then(exists => console.log(exists));
 ```
 
-## 8. Query data from firestore
+## 9. Query data from firestore
 
 This will return a Promise<array> of documents
 
@@ -117,6 +126,6 @@ let queryResults = firebaseHelper.firestore.queryData(db, 'collection-name', que
 queryResults.then(docs => console.log(docs));
 ```
 
-## 9. Next Steps
+## 10. Next Steps
 
 If you want to add more features, please make a request in the [Issue Tracker](https://github.com/dalenguyen/firebase-functions-helper/issues)
