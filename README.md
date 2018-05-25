@@ -1,5 +1,13 @@
 # firebase-functions-helper
+[![Version](https://badge.fury.io/js/firebase-functions-helper.svg)](https://badge.fury.io/js/firebase-functions-helper)
 A helper NPM package for Firebase Cloud Functions
+
+## Tables of Contents
+
+* [Installation](#installation)
+* [Get Google Cloud Account Credentials from Firebase](#get-google-cloud-account-credentials-from-firebase)
+* [Usage](#usage)
+* [Contributions](#contributions)
 
 ## Installation 
 
@@ -29,140 +37,8 @@ const serviceAccount = require('./serviceAccountKey.json');
 firebaseHelper.initializeApp(serviceAccount, databaseURL);
 ```
 
-### Get Firestore Collection with Sub Collection
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-const db = app.firestore;
-
-// Start exporting your collection
-var result = firebaseHelper.firestoreBackup(db, 'collection-name', 'sub-collection-optional');
-result.then(data => console.log(JSON.stringify(data)))
-```
-
-With this feature you can get and loop through all of your documents from a collection
-
-```sh
-var result = firebaseHelper.firestoreBackup(db, 'collection-name');
-result.then(data => {    
-    let docs = data['collection-name'];
-    for (const key in docs) {
-        if (docs.hasOwnProperty(key)) {            
-            console.log('Doc id: ', key);
-            console.log('Document data: ', docs[key])                    
-        }
-    }
-})
-```
-
-### Import data to firestore 
-
-This code will help you to import data from a JSON file to firestore
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-const db = app.firestore;
-
-// Start exporting your data
-firebaseHelper.firestoreRestore(db, 'your-file-path.json');
-```
-
-The JSON is formated as below. The collection name is __test__. __first-key__ and __second-key__ are document ids. 
-
-```sh
-{
-  "test" : {
-    "first-key" : {
-      "email"   : "dungnq@itbox4vn.com",
-      "website" : "dalenguyen.me",
-      "custom"  : {
-        "firstName" : "Dale",
-        "lastName"  : "Nguyen"
-      }
-    },
-    "second-key" : {
-      "email"   : "test@dalenguyen.me",
-      "website" : "google.com",
-      "custom"  : {
-        "firstName" : "Harry",
-        "lastName"  : "Potter"
-      }
-    }
-  }
-}
-```
-
-### Create a document with id in firestore
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-
-const db = app.firestore;
-firebaseHelper.firestoreCreateDocumentWithId(db, 'collection-name', 'document-id', data);
-```
-
-### Create a new document without an ID
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-
-const db = app.firestore;
-firebaseHelper.firestoreCreateNewDocument(db, 'collection-name', data);
-```
-
-### Update a document
-
-This action will only update the current key inside the document, if the data doesn't exist, it will create a new one. However, it will not create a new document if the document doesn't exist in the first place.
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-
-const db = app.firestore;
-firebaseHelper.firestoreUpdateDocument(db, 'collection-name', 'document-id', data);
-```
-
-### Delete a document
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-
-const db = app.firestore;
-firebaseHelper.firestoreDeleteDocument(db, 'collection-name', 'document-id');
-```
-
-### Check whether a document exists
-
-This will return a Promise<boolean>
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-
-const db = app.firestore;
-const doc = firebaseHelper.firestoreCheckDocumentExists(db, 'collection-name', 'document-id');
-doc.then(exists => console.log(exists));
-```
-
-### Query data from firestore
-
-This will return a Promise<array> of documents
-
-```sh
-// Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
-const db = app.firestore;
-
-// Search for data ( <, <=, ==, >, or >= )
-const queryArray = ['website', '==', 'dalenguyen.me'];
-let queryResults = firebaseHelper.fireStoreQuery(db, 'collection-name', queryArray);
-queryResults.then(docs => console.log(docs));
-```
+### [Working with Firestore](docs/firestore.md)
+### Working with Realtime Database (Will be updated!)
 
 ## Contributions
 
