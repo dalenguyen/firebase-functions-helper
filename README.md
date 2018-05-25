@@ -1,5 +1,6 @@
 # firebase-functions-helper
-[![Version](https://badge.fury.io/js/firebase-functions-helper.svg)](https://badge.fury.io/js/firebase-functions-helper)
+[![GitHub version](https://badge.fury.io/gh/dalenguyen%2Ffirebase-functions-helper.svg)](https://badge.fury.io/gh/dalenguyen%2Ffirebase-functions-helper)
+
 A helper NPM package for Firebase Cloud Functions
 
 ## Tables of Contents
