@@ -38,6 +38,27 @@ const serviceAccount = require('./serviceAccountKey.json');
 firebaseHelper.initializeApp(serviceAccount, databaseURL);
 ```
 
+If you want to use this package in *TypeScript*. Please follow this instruction:
+
+```sh
+import * as firebaseHelper from 'firebase-functions-helper';
+import * as serviceAccount from './serviceAccountKey.json';
+
+// Initialize Firebase App
+firebaseHelper.initializeApp(serviceAccount, databaseURL);
+
+```
+
+In order to import JSON, you need to create a __typings.d.ts__ in your project
+
+```sh
+// typings.d.ts
+declare module "*.json" {
+    const value: any;
+    export default value;
+}
+```
+
 ### [Working with Firestore](docs/firestore.md)
 ### Working with Realtime Database (Will be updated!)
 

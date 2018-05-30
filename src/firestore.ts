@@ -69,20 +69,23 @@ export class FirestoreHelper {
     * @param {any} db 
     * @param {string} collectionName 
     * @param {string} docId 
-    * @returns {Promise<boolean>} 
+    * @returns {Promise<any>} 
     * @memberof FirestoreHelper
     */
 
-    checkDocumentExists(db: any, collectionName: string, docId: string): Promise<boolean>{
+    checkDocumentExists(db: any, collectionName: string, docId: string): Promise<any>{
         const dbRef = db.collection(collectionName).doc(docId)
         return dbRef.get()
             .then(doc => {
-                if (!doc.exists) {                
-                    console.log('No such document!');
-                    return false;
-                } else {
-                    console.log('Document data:', doc.data());
-                    return true;
+                if (!doc.exists) {                                    
+                    return {
+                        exists: false
+                    };
+                } else {                    
+                    return {
+                        exists: true,
+                        data: doc.data()
+                    };
                 }
             })
             .catch(err => {

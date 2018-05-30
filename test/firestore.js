@@ -34,9 +34,9 @@ const db = app.firestore;
 // Delete a document
 // firebaseHelper.firestore.deleteDocument(db, 'test2', '1');
 
-// // Check where document exists
-// let doc = firebaseHelper.firestore.checkDocumentExists(db, 'test2', 'first-key');
-// doc.then(exists => console.log(exists));
+// Check where document exists
+let doc = firebaseHelper.firestore.checkDocumentExists(db, 'test2', 'first-key');
+doc.then(result => console.log(result.exists)); // result.data
 
 // // Search for database 
 // var query = ['website', '==', 'dalenguyen.me'];

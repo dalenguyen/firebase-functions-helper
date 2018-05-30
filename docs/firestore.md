@@ -112,7 +112,12 @@ This will return a Promise<boolean>
 
 ```sh
 const doc = firebaseHelper.firestore.checkDocumentExists(db, 'collection-name', 'document-id');
-doc.then(exists => console.log(exists));
+doc.then(result => {
+  // Boolean value of the result 
+  console.log( result.exists ); // will return true or false
+  // If the document exist, you can get the document content 
+  console.log( JSON.stringify(result.data) ); // return an object of or document
+});
 ```
 
 ## 9. Query data from firestore
