@@ -11,7 +11,7 @@ var serviceAccount = require('./serviceAccountKey.json');
 //     })
 // })
 
-let app = firebaseHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+let app = firebaseHelper.firebase.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
 const db = app.firestore;
 
 // // Data backup test

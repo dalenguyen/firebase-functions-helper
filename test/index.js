@@ -11,48 +11,49 @@ var serviceAccount = require('./serviceAccountKey.json');
 //     })
 // })
 
-let app = firebaseHelper.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
+let app = firebaseHelper.firebase.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
 // Data backup test
 const db = app.firestore;
 // console.log(db);
 
-// var result = firebaseHelper.firestoreBackup(db, 'test', 'sub');
-// result.then(data => console.log(JSON.stringify(data)))
+// Get user by id
+// let userQuery = firebaseHelper.firebase.getUserbyId('pZPRalP4Twf8it509VprkS4bPdk22');
+// userQuery.then(user => console.log(user))
 
-// Data restore test
-// var result = firebaseHelper.firestoreRestore(db, 'test/import-to-firestore.json');
+// Get user by email
+// firebaseHelper.firebase
+//     .getUserbyEmail('test@reshiftmedia.com')
+//     .then(user => console.log(user))
 
+// Delete users 
 
-// Write data to firestore
-// const db = app.firestore;
-// firebaseHelper.firestoreCreateDocumentWithId(db, 'test2', '1', {test: true});
+// let userList = ['pZPRalP4Twf8it509VprkS4bPdk2'];
+// firebaseHelper.firebase.deleteUsers(userList);
 
-// Create new document without id
-// firebaseHelper.createNewDocument(db, 'test2', {test: true});
+// Create user 
 
-// Update a document
-// firebaseHelper.updateDocument(db, 'test2', '3', {test: true});
+// let userInfo = {
+//     email: "user@dalenguyen.me",
+//     emailVerified: false,
+//     phoneNumber: "+11234567890",
+//     password: "secretPassword",
+//     displayName: "Dale Nguyen",
+//     photoURL: "http://www.example.com/12345678/photo.png",
+//     disabled: false
+// };
 
-// Delete a document
-// firebaseHelper.deleteDocument(db, 'test2', 'tts');
+// firebaseHelper.firebase.createUser(userInfo);
 
-// Check where document exists
-// let doc = firebaseHelper.firestoreCheckDocumentExists(db, 'test2', '1');
-// doc.then(exists => console.log(exists));
+// Update user 
 
-// Search for database 
-// var query = ['website', '==', 'dalenguyen.me'];
-// var queryResults = firebaseHelper.fireStoreQuery(db, 'test2', query);
-// queryResults.then(docs => console.log(docs));
+let userInfo = {
+    email: "test@dalenguyen.me",
+    emailVerified: false,
+    phoneNumber: "+11234567899",
+    password: "secretPassword",
+    displayName: "Dale Nguyen",
+    photoURL: "http://www.example.com/12345678/photo.png",
+    disabled: false
+};
 
-// Get all documents from a collection
-// var result = firebaseHelper.firestoreBackup(db, 'test2');
-// result.then(data => {    
-//     let docs = data['test2'];
-//     for (const key in docs) {
-//         if (docs.hasOwnProperty(key)) {            
-//             console.log('Doc id: ', key);
-//             console.log('Document data: ', docs[key])                    
-//         }
-//     }
-// })
+firebaseHelper.firebase.updateUser('ZqZSKCZgYdc771C97iswkUn5HPA2', userInfo);

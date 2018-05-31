@@ -1,5 +1,10 @@
 # Change log
 
+## [0.5.6] - 2018-5-31
+
+- Add firebase functions such as create user, delete user, update user...
+- Restructure firebase features
+
 ## [0.4.6] - 2018-5-30
 
 - Improve document exists method

@@ -7,7 +7,7 @@ const firebaseHelper = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
-const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.firebase.initializeApp(serviceAccount, databaseURL);
 
 // Get Firestore DB
 const db = app.firestore;
@@ -18,23 +18,26 @@ const db = app.firestore;
 The result will be a Promise that returns _content of a document_ or _false_ if document doesn't exist.
 
 ```sh
-let result = firebaseHelper.firestore.getDocument(db, 'collection-name', 'document-id');
-result.then(doc => console.log(doc));
+firebaseHelper.firestore
+  .getDocument(db, 'collection-name', 'document-id');
+  .then(doc => console.log(doc));
 ```
 
 ## 2. Get Firestore Collection with Sub Collection
 
 ```sh
 // Start exporting your collection
-let result = firebaseHelper.firestore.backup(db, 'collection-name', 'sub-collection-optional');
-result.then(data => console.log(JSON.stringify(data)))
+firebaseHelper.firestore
+  .backup(db, 'collection-name', 'sub-collection-optional');
+  .then(data => console.log(JSON.stringify(data)))
 ```
 
 With this feature you can get and loop through all of your documents from a collection
 
 ```sh
-let result = firebaseHelper.firestore.backup(db, 'collection-name');
-result.then(data => {    
+firebaseHelper.firestore
+  .backup(db, 'collection-name');
+  .then(data => {    
     let docs = data['collection-name'];
     for (const key in docs) {
         if (docs.hasOwnProperty(key)) {            
@@ -42,7 +45,7 @@ result.then(data => {
             console.log('Document data: ', docs[key])                    
         }
     }
-})
+  })
 ```
 
 ## 3. Import data to firestore 
@@ -82,13 +85,15 @@ The JSON is formated as below. The collection name is __test__. __first-key__ an
 ## 4. Create a document with id in firestore
 
 ```sh
-firebaseHelper.firestore.createDocumentWithID(db, 'collection-name', 'document-id', data);
+firebaseHelper.firestore
+  .createDocumentWithID(db, 'collection-name', 'document-id', data);
 ```
 
 ## 5. Create a new document without an ID
 
 ```sh
-firebaseHelper.firestore.creatNewDocument(db, 'collection-name', data);
+firebaseHelper.firestore
+  .creatNewDocument(db, 'collection-name', data);
 ```
 
 ## 6. Update a document
@@ -97,27 +102,30 @@ This action will only update the current key inside the document, if the data do
 
 ```sh
 let data = {key: value};
-firebaseHelper.firestore.updateDocument(db, 'collection-name', 'document-id', data);
+firebaseHelper.firestore
+  .updateDocument(db, 'collection-name', 'document-id', data);
 ```
 
 ## 7. Delete a document
 
 ```sh
-firebaseHelper.firestore.deleteDocument(db, 'collection-name', 'document-id');
+firebaseHelper.firestore
+  .deleteDocument(db, 'collection-name', 'document-id');
 ```
 
 ## 8. Check whether a document exists
 
-This will return a Promise<boolean>
+This will return a Promise<boolean> and the document data if possible
 
 ```sh
-const doc = firebaseHelper.firestore.checkDocumentExists(db, 'collection-name', 'document-id');
-doc.then(result => {
-  // Boolean value of the result 
-  console.log( result.exists ); // will return true or false
-  // If the document exist, you can get the document content 
-  console.log( JSON.stringify(result.data) ); // return an object of or document
-});
+firebaseHelper.firestore
+  .checkDocumentExists(db, 'collection-name', 'document-id');
+  .then(result => {
+    // Boolean value of the result 
+    console.log( result.exists ); // will return true or false
+    // If the document exist, you can get the document content 
+    console.log( JSON.stringify(result.data) ); // return an object of or document
+  });
 ```
 
 ## 9. Query data from firestore
@@ -127,8 +135,9 @@ This will return a Promise<array> of documents
 ```sh
 // Search for data ( <, <=, ==, >, or >= )
 const queryArray = ['website', '==', 'dalenguyen.me'];
-let queryResults = firebaseHelper.firestore.queryData(db, 'collection-name', queryArray);
-queryResults.then(docs => console.log(docs));
+firebaseHelper.firestore
+  .queryData(db, 'collection-name', queryArray);
+  .then(docs => console.log(docs));
 ```
 
 ## 10. Next Steps

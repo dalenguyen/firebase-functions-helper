@@ -26,7 +26,7 @@ After that you need to copy the __databaseURL__ for initiating the App.
 
 ## Usage 
 
-### Initialize Firebase App
+### Examples
 
 This is the first step that you need to do before doing any other actions. You still can use the other methods from firebase helpers if you initialize the app by using other methods from Firebase docs.
 
@@ -35,7 +35,7 @@ const firebaseHelper = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
-firebaseHelper.initializeApp(serviceAccount, databaseURL);
+firebaseHelper.firebase.initializeApp(serviceAccount, databaseURL);
 ```
 
 If you want to use this package in *TypeScript*. Please follow this instruction:
@@ -45,7 +45,7 @@ import * as firebaseHelper from 'firebase-functions-helper';
 import * as serviceAccount from './serviceAccountKey.json';
 
 // Initialize Firebase App
-firebaseHelper.initializeApp(serviceAccount, databaseURL);
+firebaseHelper.firebase.initializeApp(serviceAccount, databaseURL);
 
 ```
 
@@ -59,6 +59,7 @@ declare module "*.json" {
 }
 ```
 
+### [Working with Firebase](docs/firebase.md)
 ### [Working with Firestore](docs/firestore.md)
 ### Working with Realtime Database (Will be updated!)
 
