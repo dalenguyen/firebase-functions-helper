@@ -85,3 +85,28 @@ let userInfo = {
 firebaseHelper.firebase
     .updateUser('user-id', userInfo);
 ```
+
+## 8. Get a list of users
+
+This will return an array of users. If you don't pass the max-number-of-user, the default is 1000.
+
+```sh
+firebaseHelper.firebase
+    .getAllUsers('max-number-of-users - optional')    
+    .then(users => console.log(users))   
+    })
+```
+
+From this, you can delete users in bulk by combining two methods.
+
+```sh
+// Get all users 
+firebaseHelper.firebase
+    .getAllUsers('max-number-of-users - optional')    
+    .then(users => {        
+        users.map(user => {
+            firebaseHelper.firebase
+                .deleteUsers([user.uid]);          
+        })   
+    })
+```

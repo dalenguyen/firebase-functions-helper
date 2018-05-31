@@ -46,14 +46,23 @@ const db = app.firestore;
 
 // Update user 
 
-let userInfo = {
-    email: "test@dalenguyen.me",
-    emailVerified: false,
-    phoneNumber: "+11234567899",
-    password: "secretPassword",
-    displayName: "Dale Nguyen",
-    photoURL: "http://www.example.com/12345678/photo.png",
-    disabled: false
-};
+// let userInfo = {
+//     email: "test@dalenguyen.me",
+//     emailVerified: false,
+//     phoneNumber: "+11234567899",
+//     password: "secretPassword",
+//     displayName: "Dale Nguyen",
+//     photoURL: "http://www.example.com/12345678/photo.png",
+//     disabled: false
+// };
 
-firebaseHelper.firebase.updateUser('ZqZSKCZgYdc771C97iswkUn5HPA2', userInfo);
+// firebaseHelper.firebase.updateUser('ZqZSKCZgYdc771C97iswkUn5HPA2', userInfo);
+
+// Get all users 
+firebaseHelper.firebase
+    .getAllUsers(2)    
+    .then(users => {        
+        users.map(user => {
+            firebaseHelper.firebase.deleteUsers([user.uid]);            
+        })   
+    })

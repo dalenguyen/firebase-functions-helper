@@ -78,10 +78,10 @@ export class FirebaseHelper {
      */
     createUser(userInfo: Object): void {
         admin.auth().createUser(userInfo)
-            .then(function (userRecord) {
+            .then( (userRecord) => {
                 console.log("Successfully created new user:", userRecord.uid);
             })
-            .catch(function (error) {
+            .catch( (error) => {
                 console.log("Error creating new user:", error);
             });
     }
@@ -95,11 +95,26 @@ export class FirebaseHelper {
      */
     updateUser(userId: string, userInfo: Object): void {
         admin.auth().updateUser(userId, userInfo)
-            .then(function (userRecord) {                
+            .then( (userRecord) => {                
                 console.log("Successfully updated user", userRecord.toJSON());
             })
-            .catch(function (error) {
+            .catch( (error) => {
                 console.log("Error updating user:", error);
             });
+    }
+
+    /**
+     * Get a list of users
+     * 
+     * @param {number} [maxResults=1000] 
+     * @returns {Promise<any>} 
+     * @memberof FirebaseHelper
+     */
+    getAllUsers(maxResults: number = 1000): Promise<any>{        
+        return admin.auth().listUsers(maxResults)
+        .then((listUsersResult) => listUsersResult.users)
+        .catch((error) => {
+            console.log("Error listing users:", error);
+        });
     }
 }

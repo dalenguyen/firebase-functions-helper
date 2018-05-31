@@ -1,5 +1,10 @@
 # Change log
 
+## [0.5.7] - 2018-5-31
+
+- Add get users feature
+- Delete users in bulk feature
+
 ## [0.5.6] - 2018-5-31
 
 - Add firebase functions such as create user, delete user, update user...
