@@ -35,13 +35,13 @@ const db = app.firestore;
 // firebaseHelper.firestore.deleteDocument(db, 'test2', '1');
 
 // Check where document exists
-let doc = firebaseHelper.firestore.checkDocumentExists(db, 'test2', 'first-key');
-doc.then(result => console.log(result.exists)); // result.data
+// let doc = firebaseHelper.firestore.checkDocumentExists(db, 'test2', 'first-key');
+// doc.then(result => console.log(result.exists)); // result.data
 
 // // Search for database 
-// var query = ['website', '==', 'dalenguyen.me'];
-// var queryResults = firebaseHelper.firestore.queryData(db, 'test2', query);
-// queryResults.then(docs => console.log(docs));
+var query = ['website', '==', 'dalenguyen.me'];
+var queryResults = firebaseHelper.firestore.queryData(db, 'test2', query);
+queryResults.then(docs => console.log(docs));
 
 // Get all documents from a collection
 // var result = firebaseHelper.firestore.backup(db, 'test2');

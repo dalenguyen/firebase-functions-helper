@@ -19,7 +19,7 @@ The result will be a Promise that returns _content of a document_ or _false_ if 
 
 ```sh
 firebaseHelper.firestore
-  .getDocument(db, 'collection-name', 'document-id');
+  .getDocument(db, 'collection-name', 'document-id')
   .then(doc => console.log(doc));
 ```
 
@@ -28,7 +28,7 @@ firebaseHelper.firestore
 ```sh
 // Start exporting your collection
 firebaseHelper.firestore
-  .backup(db, 'collection-name', 'sub-collection-optional');
+  .backup(db, 'collection-name', 'sub-collection-optional')
   .then(data => console.log(JSON.stringify(data)))
 ```
 
@@ -119,7 +119,7 @@ This will return a Promise<boolean> and the document data if possible
 
 ```sh
 firebaseHelper.firestore
-  .checkDocumentExists(db, 'collection-name', 'document-id');
+  .checkDocumentExists(db, 'collection-name', 'document-id')
   .then(result => {
     // Boolean value of the result 
     console.log( result.exists ); // will return true or false
@@ -136,7 +136,7 @@ This will return a Promise<array> of documents
 // Search for data ( <, <=, ==, >, or >= )
 const queryArray = ['website', '==', 'dalenguyen.me'];
 firebaseHelper.firestore
-  .queryData(db, 'collection-name', queryArray);
+  .queryData(db, 'collection-name', queryArray)
   .then(docs => console.log(docs));
 ```
 

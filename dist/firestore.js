@@ -134,7 +134,7 @@ class FirestoreHelper {
         return new Promise((resolve, reject) => {
             let dataRef = db.collection(collectionName);
             let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
-            let results = [];
+            let results = {};
             queryRef.get()
                 .then(snapshot => {
                 snapshot.forEach(doc => {

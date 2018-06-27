@@ -1,5 +1,10 @@
 # Change log
 
+## [0.5.8] - 2018-6-27
+
+- Edit documents
+- Change query results to an object
+
 ## [0.5.7] - 2018-5-31
 
 - Add get users feature

@@ -1,6 +1,6 @@
 {
   "name": "firebase-functions-helper",
-  "version": "0.5.7",
+  "version": "0.5.8",
   "description": "A helper NPM package for Firebase Cloud Functions",
   "main": "dist/index.js",
   "scripts": {

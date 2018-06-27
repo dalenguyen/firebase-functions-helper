@@ -20,7 +20,7 @@ You will find this user Id from __Authentication__ tab in Firebase Console. This
 
 ```sh
 firebaseHelper.firebase
-    .getUserbyId('user-id');
+    .getUserbyId('user-id')
     .then(user => console.log(user))
 ```
 
