@@ -13,6 +13,7 @@ var serviceAccount = require('./serviceAccountKey.json');
 
 let app = firebaseHelper.firebase.initializeApp(serviceAccount, 'https://ionic-firestore-dn.firebaseio.com');
 const db = app.firestore;
+db.settings({ timestampsInSnapshots: true });
 
 // // Data backup test
 // var result = firebaseHelper.firestore.backup(db, 'test', 'sub');

@@ -1,5 +1,9 @@
 # Change log
 
+## [0.5.9] - 2018-7-31
+
+- Update firebase-admin version and firestore settings
+
 ## [0.5.8] - 2018-6-27
 
 - Edit documents

@@ -11,6 +11,7 @@ const app = firebaseHelper.firebase.initializeApp(serviceAccount, databaseURL);
 
 // Get Firestore DB
 const db = app.firestore;
+db.settings({ timestampsInSnapshots: true });
 ```
 
 ## 1. Get a Document
