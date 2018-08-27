@@ -27,7 +27,7 @@ db.settings({ timestampsInSnapshots: true });
 // firebaseHelper.firestore.createDocumentWithID(db, 'test2', '1', {test: true});
 
 // // Create new document without id
-// firebaseHelper.firestore.creatNewDocument(db, 'test2', {test: true});
+// firebaseHelper.firestore.createNewDocument(db, 'test2', {test: true});
 
 // // Update a document
 // firebaseHelper.firestore.updateDocument(db, 'test2', '1', {test: true});

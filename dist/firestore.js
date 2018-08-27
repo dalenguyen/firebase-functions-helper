@@ -31,7 +31,7 @@ class FirestoreHelper {
      * @param {any} collectionName
      * @param {any} data
      */
-    creatNewDocument(db, collectionName, data) {
+    createNewDocument(db, collectionName, data) {
         db.collection(collectionName).add(data)
             .then(function (docRef) {
             console.log("Document written with ID: ", docRef.id);

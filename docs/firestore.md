@@ -94,7 +94,7 @@ firebaseHelper.firestore
 
 ```sh
 firebaseHelper.firestore
-  .creatNewDocument(db, 'collection-name', data);
+  .createNewDocument(db, 'collection-name', data);
 ```
 
 ## 6. Update a document
