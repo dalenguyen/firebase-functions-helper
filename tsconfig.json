@@ -4,7 +4,7 @@
     "module": "commonjs",
     "noImplicitReturns": true,
     "outDir": "dist",
-    "sourceMap": true,
+    "sourceMap": false,
     "target": "es6"
   },
   "compileOnSave": true,
