@@ -28,7 +28,7 @@ export class FirestoreHelper {
      * @param {any} data 
      * @returns 
      */
-    createSubcollectionWithDocument (db: any, collectionName: string, docId: string, , collectionNameTwo: string, docIdTwo: string, data: Object): void {
+    createSubcollectionWithDocument (db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string, data: Object): void {
         db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo)).set(data)
             .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionNameTwo} collection`))
             .catch(err => console.log('Error: ', err))
