@@ -22,7 +22,9 @@ export class FirestoreHelper {
      * 
      * @param {any} db 
      * @param {any} collectionName 
-     * @param {any} docID 
+     * @param {any} docID
+     * @param {any} collectionNameTwo
+     * @param {any} docIDTwo
      * @param {any} data 
      * @returns 
      */
@@ -85,6 +87,8 @@ export class FirestoreHelper {
      * @param {any} db 
      * @param {any} collectionName 
      * @param {any} docId 
+     * @param {any} collectionNameTwo
+     * @param {any} docIdTwo
      */
     deleteDocumentFromSubcollection (db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string) {
         db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).delete()
