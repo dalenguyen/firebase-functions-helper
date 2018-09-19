@@ -16,6 +16,22 @@ export class FirestoreHelper {
             .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionName} collection`))
             .catch(err => console.log('Error: ', err))
     }
+
+    /**
+     * Create a document with id in firestore
+     * 
+     * @param {any} db 
+     * @param {any} collectionName 
+     * @param {any} docID 
+     * @param {any} data 
+     * @returns 
+     */
+    createSubcollectionWithDocument (db: any, collectionName: string, docId: string, , collectionNameTwo: string, docIdTwo: string, data: Object): void {
+        db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo)).set(data)
+            .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionNameTwo} collection`))
+            .catch(err => console.log('Error: ', err))
+    }
+
     /**
      * Create a document without an ID
      * 
@@ -58,6 +74,22 @@ export class FirestoreHelper {
         db.collection(collectionName).doc(docId).delete()
             .then(() => {
                 console.log(`${docId} successfully deleted!`);
+            }).catch(error => {
+                console.error("Error removing document: ", error);
+            });
+    }
+
+    /**
+     * Delete a document
+     * 
+     * @param {any} db 
+     * @param {any} collectionName 
+     * @param {any} docId 
+     */
+    deleteDocumentFromSubcollection (db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string) {
+        db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).delete()
+            .then(() => {
+                console.log(`${docIdTwo} successfully deleted!`);
             }).catch(error => {
                 console.error("Error removing document: ", error);
             });
