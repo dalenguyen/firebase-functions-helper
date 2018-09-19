@@ -25,7 +25,20 @@ class FirestoreHelper {
             .catch(err => console.log('Error: ', err));
     }
 
+
+    /**
+     * Create a document with id in firestore
+     *
+     * @param {any} db
+     * @param {any} collectionName
+     * @param {any} collectionNameTwo
+     * @param {any} docID
+     * @param {any} docIDTwo
+     * @param {any} data
+     * @returns
+     */
     createSubcollectionWithDocument(db, collectionName, docId, collectionNameTwo, docIdTwo, data) {
+        console.log('entered createSubcollectionWithDocument');
         db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).set(data)
             .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionNameTwo} collection`))
             .catch(err => console.log('Error: ', err));
@@ -80,8 +93,11 @@ class FirestoreHelper {
      *
      * @param {any} db
      * @param {any} collectionName
+     * @param {any} collectionNameTwo
      * @param {any} docId
+     * @param {any} docIdTwo
      */
+
     deleteDocumentFromSubcollection(db, collectionName, docId, collectionNameTwo, docIdTwo) {
         db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).delete()
             .then(() => {
