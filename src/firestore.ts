@@ -5,9 +5,9 @@ export class FirestoreHelper {
     /**
      * Create a document with id in firestore
      * 
-     * @param {any} db 
-     * @param {any} collectionName 
-     * @param {any} docID 
+     * @param {any} db Database
+     * @param {any} collectionName Collection name
+     * @param {any} docId Document ID
      * @param {any} data 
      * @returns 
      */
@@ -74,14 +74,14 @@ export class FirestoreHelper {
     */
 
     checkDocumentExists(db: any, collectionName: string, docId: string): Promise<any>{
-        const dbRef = db.collection(collectionName).doc(docId)
+        const dbRef = db.collection(collectionName).doc(docId);
         return dbRef.get()
             .then(doc => {
-                if (!doc.exists) {                                    
+                if (!doc.exists) {
                     return {
                         exists: false
                     };
-                } else {                    
+                } else {
                     return {
                         exists: true,
                         data: doc.data()
@@ -105,7 +105,7 @@ export class FirestoreHelper {
     getDocument(db: any, collectionName: string, documentId: string): Promise<any> {
         const docRef = db.collection(collectionName).doc(documentId);
         return docRef.get().then(function(doc) {
-            if (doc.exists) {                
+            if (doc.exists) {
                 return doc.data();
             } else {
                 // doc.data() will be undefined in this case
@@ -113,12 +113,12 @@ export class FirestoreHelper {
                 return false;
             }
         }).catch(function(error) {
-            console.log("Error getting document:", error);            
+            console.log("Error getting document:", error);
         });
     }
 
     /**
-     * Query data from firestore
+     * Query data from Firestore
      * 
      * @param {*} db 
      * @param {string} collectionName 
@@ -128,20 +128,20 @@ export class FirestoreHelper {
      */
     queryData(db: any, collectionName: string, queryArray: [any]): Promise<any>{
         return new Promise((resolve, reject) => {
-            let dataRef = db.collection(collectionName);            
-            let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
-            let results = {};
+            const dataRef = db.collection(collectionName);
+            const queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            const results = {};
 
             queryRef.get()
                 .then(snapshot => {
-                    snapshot.forEach(doc => {                        
+                    snapshot.forEach(doc => {
                         results[doc.id] = doc.data();
-                    });                                                        
+                    });
                     if(Object.keys(results).length > 0){
                         resolve(results);
                     } else {
                         resolve('No such document!');
-                    }                    
+                    }
                 })
                 .catch(err => {
                     reject(false);
@@ -151,30 +151,31 @@ export class FirestoreHelper {
     }
 
     /**
-     * Backup data from firestore
-     * 
+     * Backup data from Firestore
+     *
+     * @param {*} db
      * @param {string} collectionName
      * @param {string} subCollection
      * @return {json}
      */
     backup (db: any, collectionName: string, subCollection: string = '') {
-        console.log('Geting data from: ', collectionName);
+        console.log('Getting data from: ', collectionName);
         return new Promise((resolve, reject) => {
-            let data = {};
+            const data = {};
 
             data[collectionName] = {};
 
-            let results = db.collection(collectionName)
+            const results = db.collection(collectionName)
                 .get()
                 .then(snapshot => {
                     snapshot.forEach(doc => {
                         data[collectionName][doc.id] = doc.data();
-                    })
+                    });
                     return data;
                 })
                 .catch(error => {
                     console.log(error);
-                })
+                });
 
             results.then(dt => {
                 if (subCollection === '') {
@@ -188,7 +189,7 @@ export class FirestoreHelper {
                     })
                 }
             }).catch(error => {
-                console.log(error)
+                console.log(error);
                 reject(error);
             })
         })
@@ -205,7 +206,7 @@ export class FirestoreHelper {
      * @param {any} subCollection 
      */
     async getSubCollection(db: any, data: Object, dt: Object, collectionName: string, subCollection: string) {
-        for (let [key, value] of Object.entries([dt[collectionName]][0])) {
+        for (const [key, value] of Object.entries([dt[collectionName]][0])) {
             data[collectionName][key]['subCollection'] = {};
             await this.addSubCollection(db, key, data[collectionName][key]['subCollection'], collectionName, subCollection);
         }
@@ -237,21 +238,22 @@ export class FirestoreHelper {
     }
 
     /**
-     * Restore data to firestore
+     * Restore data to Firestore
      * 
      * @param {any} db 
      * @param {any} fileName 
      */
     restore (db, fileName) {
-        const that = this;;
+        const that = this;
 
         fs.readFile(fileName, 'utf8', function (err, data) {
             if (err) {
-                return console.log(err);
+                console.log(err);
+                return;
             }
 
             // Turn string from file to an Array
-            let dataArray = JSON.parse(data);                                 
+            const dataArray = JSON.parse(data);
 
             that.updateCollection(db, dataArray).then(() => {
                 console.log('Successfully import collection!');
@@ -263,17 +265,16 @@ export class FirestoreHelper {
     }
 
     /**
-     * Update data to firestore
+     * Update data to Firestore
      * 
      * @param {any} db
      * @param {any} dataArray 
      */
     async updateCollection(db: any, dataArray: Object) {
-        for (var index in dataArray) {
-            var collectionName = index;
-            for (var doc in dataArray[index]) {
+        for (const index in dataArray) {
+            for (const doc in dataArray[index]) {
                 if (dataArray[index].hasOwnProperty(doc)) {
-                    await this.startUpdating(db, collectionName, doc, dataArray[index][doc])
+                    await this.startUpdating(db, index, doc, dataArray[index][doc])
                 }
             }
         }
@@ -290,15 +291,13 @@ export class FirestoreHelper {
      */
     startUpdating(db: any, collectionName: string, doc: string, data: Object) {
         return new Promise(resolve => {
-            db.collection(collectionName).doc(doc)
+            return db.collection(collectionName).doc(doc)
                 .set(data)
                 .then(() => {
-                    console.log(`${doc} is successed adding to firestore!`);
+                    console.log(`${doc} is succeeded adding to Firestore!`);
                     resolve('Data wrote!');
                 })
-                .catch(error => {
-                    console.log(error);
-                });
+                .catch(error => console.log(error));
         })
     }
 }
