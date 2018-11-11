@@ -21,7 +21,7 @@ class FirebaseHelper {
      * @param {string} userId
      * @returns {Promise<any>}
      */
-    getUserbyId(userId) {
+    getUserById(userId) {
         return admin.auth().getUser(userId)
             .then(user => user)
             .catch(error => console.log(error));
@@ -33,7 +33,7 @@ class FirebaseHelper {
      * @returns {Promise<any>}
      * @memberof FirebaseHelper
      */
-    getUserbyEmail(email) {
+    getUserByEmail(email) {
         return admin.auth().getUserByEmail(email)
             .then(user => user)
             .catch(error => console.log(error));
@@ -45,7 +45,7 @@ class FirebaseHelper {
      * @returns {Promise<any>}
      * @memberof FirebaseHelper
      */
-    getUserbyPhone(phone) {
+    getUserByPhone(phone) {
         return admin.auth().getUserByPhoneNumber(phone)
             .then(user => user)
             .catch(error => console.log(error));
