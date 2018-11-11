@@ -13,34 +13,15 @@ class FirestoreHelper {
     /**
      * Create a document with id in firestore
      *
-     * @param {any} db
-     * @param {any} collectionName
-     * @param {any} docID
+     * @param {any} db Database
+     * @param {any} collectionName Collection name
+     * @param {any} docId Document ID
      * @param {any} data
      * @returns
      */
     createDocumentWithID(db, collectionName, docId, data) {
         db.collection(collectionName).doc(docId).set(data)
             .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionName} collection`))
-            .catch(err => console.log('Error: ', err));
-    }
-
-
-    /**
-     * Create a document with id in firestore
-     *
-     * @param {any} db
-     * @param {any} collectionName
-     * @param {any} collectionNameTwo
-     * @param {any} docID
-     * @param {any} docIDTwo
-     * @param {any} data
-     * @returns
-     */
-    createSubcollectionWithDocument(db, collectionName, docId, collectionNameTwo, docIdTwo, data) {
-        console.log('entered createSubcollectionWithDocument');
-        db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).set(data)
-            .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionNameTwo} collection`))
             .catch(err => console.log('Error: ', err));
     }
     /**
@@ -87,26 +68,6 @@ class FirestoreHelper {
             console.error("Error removing document: ", error);
         });
     }
-
-    /**
-     * Delete a document
-     *
-     * @param {any} db
-     * @param {any} collectionName
-     * @param {any} collectionNameTwo
-     * @param {any} docId
-     * @param {any} docIdTwo
-     */
-
-    deleteDocumentFromSubcollection(db, collectionName, docId, collectionNameTwo, docIdTwo) {
-        db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).delete()
-            .then(() => {
-            console.log(`${docIdTwo} successfully deleted!`);
-        }).catch(error => {
-            console.error("Error removing document: ", error);
-        });
-    }
-
     /**
     * Check where a document exists or not
     *
@@ -161,7 +122,7 @@ class FirestoreHelper {
         });
     }
     /**
-     * Query data from firestore
+     * Query data from Firestore
      *
      * @param {*} db
      * @param {string} collectionName
@@ -171,9 +132,9 @@ class FirestoreHelper {
      */
     queryData(db, collectionName, queryArray) {
         return new Promise((resolve, reject) => {
-            let dataRef = db.collection(collectionName);
-            let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
-            let results = {};
+            const dataRef = db.collection(collectionName);
+            const queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            const results = {};
             queryRef.get()
                 .then(snapshot => {
                 snapshot.forEach(doc => {
@@ -193,18 +154,19 @@ class FirestoreHelper {
         });
     }
     /**
-     * Backup data from firestore
+     * Backup data from Firestore
      *
+     * @param {*} db
      * @param {string} collectionName
      * @param {string} subCollection
      * @return {json}
      */
     backup(db, collectionName, subCollection = '') {
-        console.log('Geting data from: ', collectionName);
+        console.log('Getting data from: ', collectionName);
         return new Promise((resolve, reject) => {
-            let data = {};
+            const data = {};
             data[collectionName] = {};
-            let results = db.collection(collectionName)
+            const results = db.collection(collectionName)
                 .get()
                 .then(snapshot => {
                 snapshot.forEach(doc => {
@@ -244,7 +206,7 @@ class FirestoreHelper {
      */
     getSubCollection(db, data, dt, collectionName, subCollection) {
         return __awaiter(this, void 0, void 0, function* () {
-            for (let [key, value] of Object.entries([dt[collectionName]][0])) {
+            for (const [key, value] of Object.entries([dt[collectionName]][0])) {
                 data[collectionName][key]['subCollection'] = {};
                 yield this.addSubCollection(db, key, data[collectionName][key]['subCollection'], collectionName, subCollection);
             }
@@ -275,20 +237,20 @@ class FirestoreHelper {
         });
     }
     /**
-     * Restore data to firestore
+     * Restore data to Firestore
      *
      * @param {any} db
      * @param {any} fileName
      */
     restore(db, fileName) {
         const that = this;
-        ;
         fs.readFile(fileName, 'utf8', function (err, data) {
             if (err) {
-                return console.log(err);
+                console.log(err);
+                return;
             }
             // Turn string from file to an Array
-            let dataArray = JSON.parse(data);
+            const dataArray = JSON.parse(data);
             that.updateCollection(db, dataArray).then(() => {
                 console.log('Successfully import collection!');
             }).catch(error => {
@@ -297,18 +259,17 @@ class FirestoreHelper {
         });
     }
     /**
-     * Update data to firestore
+     * Update data to Firestore
      *
      * @param {any} db
      * @param {any} dataArray
      */
     updateCollection(db, dataArray) {
         return __awaiter(this, void 0, void 0, function* () {
-            for (var index in dataArray) {
-                var collectionName = index;
-                for (var doc in dataArray[index]) {
+            for (const index in dataArray) {
+                for (const doc in dataArray[index]) {
                     if (dataArray[index].hasOwnProperty(doc)) {
-                        yield this.startUpdating(db, collectionName, doc, dataArray[index][doc]);
+                        yield this.startUpdating(db, index, doc, dataArray[index][doc]);
                     }
                 }
             }
@@ -325,15 +286,13 @@ class FirestoreHelper {
      */
     startUpdating(db, collectionName, doc, data) {
         return new Promise(resolve => {
-            db.collection(collectionName).doc(doc)
+            return db.collection(collectionName).doc(doc)
                 .set(data)
                 .then(() => {
-                console.log(`${doc} is successed adding to firestore!`);
+                console.log(`${doc} is succeeded adding to Firestore!`);
                 resolve('Data wrote!');
             })
-                .catch(error => {
-                console.log(error);
-            });
+                .catch(error => console.log(error));
         });
     }
 }
