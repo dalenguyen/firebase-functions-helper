@@ -51,6 +51,24 @@ class FirebaseHelper {
             .catch(error => console.log(error));
     }
     /**
+     * Delete a user
+     *
+     * @param {Array<string>} userIds
+     * @memberof FirebaseHelper
+     */
+    deleteUser(userId) {
+        return new Promise(resolve => {
+            admin.auth().deleteUser(userId)
+                .then(() => {
+                resolve(true);
+            })
+                .catch(error => {
+                console.log(error);
+                resolve(false);
+            });
+        });
+    }
+    /**
      * Delete user from an Array of User Ids
      *
      * @param {Array<string>} userIds
@@ -58,26 +76,36 @@ class FirebaseHelper {
      */
     deleteUsers(userIds) {
         userIds.map(userId => {
-            admin.auth().deleteUser(userId)
-                .then(() => {
-                console.log("Successfully deleted user: ", userId);
-            })
-                .catch(error => console.log(error));
+            this.deleteUser(userId);
+            // admin.auth().deleteUser(userId)
+            //     .then(() => {
+            //         console.log("Successfully deleted user: ", userId);
+            //     })
+            //     .catch(error => console.log(error))
         });
     }
     /**
      * Create a new user
      *
      * @param {Object} userInfo
+     * @returns {Promise<any>}
      * @memberof FirebaseHelper
      */
     createUser(userInfo) {
-        admin.auth().createUser(userInfo)
-            .then((userRecord) => {
-            console.log("Successfully created new user:", userRecord.uid);
-        })
-            .catch((error) => {
-            console.log("Error creating new user:", error);
+        return new Promise((resolve) => {
+            admin.auth().createUser(userInfo)
+                .then((userRecord) => {
+                resolve({
+                    status: true,
+                    data: userRecord
+                });
+            })
+                .catch((error) => {
+                resolve({
+                    status: false,
+                    data: error.message
+                });
+            });
         });
     }
     /**
@@ -88,12 +116,20 @@ class FirebaseHelper {
      * @memberof FirebaseHelper
      */
     updateUser(userId, userInfo) {
-        admin.auth().updateUser(userId, userInfo)
-            .then((userRecord) => {
-            console.log("Successfully updated user", userRecord.toJSON());
-        })
-            .catch((error) => {
-            console.log("Error updating user:", error);
+        return new Promise(resolve => {
+            admin.auth().updateUser(userId, userInfo)
+                .then(userRecord => {
+                resolve({
+                    status: true,
+                    data: userRecord
+                });
+            })
+                .catch((error) => {
+                resolve({
+                    status: false,
+                    data: error.message
+                });
+            });
         });
     }
     /**

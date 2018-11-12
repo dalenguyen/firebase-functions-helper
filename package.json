@@ -1,39 +1,33 @@
 {
-  "_from": "firebase-functions-helper",
-  "_id": "firebase-functions-helper@0.5.10",
-  "_inBundle": false,
-  "_location": "/firebase-functions-helper",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "firebase-functions-helper",
-    "name": "firebase-functions-helper",
-    "escapedName": "firebase-functions-helper",
-    "rawSpec": "",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_spec": "firebase-functions-helper",
-  "_where": "/Users/eamonwhite/snag/react-native-firebase-starter/functions",
+  "name": "firebase-functions-helper",
+  "version": "0.6.0",
+  "description": "A helper NPM package for Firebase Cloud Functions",
   "author": {
     "name": "Dale Nguyen",
     "email": "dungnq@itbox4vn.com",
     "url": "http://dalenguyen.me"
   },
+  "homepage": "https://github.com/dalenguyen/firebase-functions-helper#readme",
   "bugs": {
     "url": "https://github.com/dalenguyen/firebase-functions-helper/issues"
   },
-  "bundleDependencies": false,
+  "keywords": [
+    "firebase",
+    "cloud",
+    "functions",
+    "functions",
+    "helper"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "mocha --recursive test --exit",
+    "prod": "npm run build && npm run test"
+  },
   "dependencies": {
     "firebase-admin": "^5.13.1"
   },
   "deprecated": false,
-  "description": "A helper NPM package for Firebase Cloud Functions",
   "devDependencies": {
     "chai": "^4.1.2",
     "mocha": "^5.1.1",
@@ -42,24 +36,9 @@
   "engines": {
     "node": ">=7.6.0"
   },
-  "homepage": "https://github.com/dalenguyen/firebase-functions-helper#readme",
-  "keywords": [
-    "firebase",
-    "cloud",
-    "functions",
-    "functions",
-    "helper"
-  ],
   "license": "MIT",
-  "main": "dist/index.js",
-  "name": "firebase-functions-helper",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/eamonwhiter73/firebase-functions-helper.git"
-  },
-  "scripts": {
-    "build": "tsc",
-    "test": "mocha --reporter spec"
-  },
-  "version": "0.5.10"
+  }
 }

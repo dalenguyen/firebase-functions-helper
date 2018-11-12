@@ -32,7 +32,7 @@ export class FirestoreHelper {
                 console.error("Error adding document: ", error);
             });
     }
-  
+
      /**
      * Create a document with id in firestore
      * 
@@ -44,11 +44,11 @@ export class FirestoreHelper {
      * @param {any} data 
      * @returns 
      */
-    createSubcollectionWithDocument (db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string, data: Object): void {
-        db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo)).set(data)
-            .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionNameTwo} collection`))
-            .catch(err => console.log('Error: ', err))
-    }
+    // createSubcollectionWithDocument (db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string, data: Object): void {
+    //     db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo)).set(data)
+    //         .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionNameTwo} collection`))
+    //         .catch(err => console.log('Error: ', err))
+    // }
 
     /**
      * Update a document

@@ -41,6 +41,22 @@ class FirestoreHelper {
         });
     }
     /**
+    * Create a document with id in firestore
+    *
+    * @param {any} db
+    * @param {any} collectionName
+    * @param {any} docID
+    * @param {any} collectionNameTwo
+    * @param {any} docIDTwo
+    * @param {any} data
+    * @returns
+    */
+    // createSubcollectionWithDocument (db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string, data: Object): void {
+    //     db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo)).set(data)
+    //         .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionNameTwo} collection`))
+    //         .catch(err => console.log('Error: ', err))
+    // }
+    /**
      * Update a document
      *
      * @param {any} db
@@ -64,6 +80,23 @@ class FirestoreHelper {
         db.collection(collectionName).doc(docId).delete()
             .then(() => {
             console.log(`${docId} successfully deleted!`);
+        }).catch(error => {
+            console.error("Error removing document: ", error);
+        });
+    }
+    /**
+    * Delete a document from Sub Collection
+    *
+    * @param {any} db
+    * @param {any} collectionName
+    * @param {any} docId
+    * @param {any} collectionNameTwo
+    * @param {any} docIdTwo
+    */
+    deleteDocumentFromSubcollection(db, collectionName, docId, collectionNameTwo, docIdTwo) {
+        db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).delete()
+            .then(() => {
+            console.log(`${docIdTwo} successfully deleted!`);
         }).catch(error => {
             console.error("Error removing document: ", error);
         });

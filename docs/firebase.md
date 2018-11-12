@@ -44,15 +44,25 @@ firebaseHelper.firebase
     .then(user => console.log(user))
 ```
 
-## 5. Delete user through an Array of User Ids
+## 5. Delete a user by user id
 
 ```sh
-let userList = ['userid-1', 'userid-2'];
 firebaseHelper.firebase
-    .deleteUsers(userList);
+    .deleteUser(userId)
+    .then(res => console.log(res))
 ```
 
-## 6. Create a new Firebase user 
+This will return a Promise<boolean>. 
+
+## 6. Delete users through an Array of User Ids
+
+```sh
+let userList = ['userid-1', 'userid-2']
+firebaseHelper.firebase
+    .deleteUsers(userList)
+```
+
+## 7. Create a new Firebase user 
 
 ```sh
 let userInfo = {
@@ -66,10 +76,20 @@ let userInfo = {
 };
 
 firebaseHelper.firebase
-    .createUser(userInfo);
+    .createUser(userInfo)
+    .then(res => console.log(res));
 ```
 
-## 7. Update a user though user Id
+This will return a Promise:
+
+```sh
+{
+    status: true/false
+    data: userInfo/Error message
+}
+```
+
+## 8. Update a user though user Id
 
 ```sh
 let userInfo = {
@@ -86,7 +106,7 @@ firebaseHelper.firebase
     .updateUser('user-id', userInfo);
 ```
 
-## 8. Get a list of users
+## 9. Get a list of users
 
 This will return an array of users. If you don't pass the max-number-of-user, the default is 1000.
 
