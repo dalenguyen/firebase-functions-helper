@@ -58,6 +58,8 @@ This code will help you to import data from a JSON file to firestore
 firebaseHelper.firestore.restore(db, 'your-file-path.json');
 ```
 
+This will return a Promise<{status: boolean, message: string}>.
+
 The JSON is formated as below. The collection name is __test__. __first-key__ and __second-key__ are document ids. 
 
 ```sh
@@ -90,12 +92,17 @@ firebaseHelper.firestore
   .createDocumentWithID(db, 'collection-name', 'document-id', data);
 ```
 
+This will return a Promise<boolean>.
+
 ## 5. Create a new document without an ID
 
 ```sh
 firebaseHelper.firestore
-  .createNewDocument(db, 'collection-name', data);
+  .createNewDocument(db, 'collection-name', data)
+  .then(docRef => console.log(docRef.id));
 ```
+
+This will return a Promise<DocumentReference>. You can get the document id from that.
 
 ## 6. Update a document
 
@@ -107,12 +114,16 @@ firebaseHelper.firestore
   .updateDocument(db, 'collection-name', 'document-id', data);
 ```
 
+This will return a Promise. True if success and will throw an error if fail.
+
 ## 7. Delete a document
 
 ```sh
 firebaseHelper.firestore
   .deleteDocument(db, 'collection-name', 'document-id');
 ```
+
+This will return a Promise<{status: bolean, message: string}>
 
 ## 8. Check whether a document exists
 

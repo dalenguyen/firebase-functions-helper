@@ -11,33 +11,38 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
 class FirestoreHelper {
     /**
-     * Create a document with id in firestore
+     *Create a document with id in firestore
      *
-     * @param {any} db Database
-     * @param {any} collectionName Collection name
-     * @param {any} docId Document ID
-     * @param {any} data
-     * @returns
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {string} docId
+     * @param {Object} data
+     * @returns {Promise<boolean>}
+     * @memberof FirestoreHelper
      */
     createDocumentWithID(db, collectionName, docId, data) {
-        db.collection(collectionName).doc(docId).set(data)
-            .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionName} collection`))
-            .catch(err => console.log('Error: ', err));
+        return db.collection(collectionName).doc(docId).set(data)
+            .then(() => true)
+            .catch(function (error) {
+            return false;
+        });
     }
     /**
      * Create a document without an ID
      *
-     * @param {any} db
-     * @param {any} collectionName
-     * @param {any} data
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {Object} data
+     * @returns
+     * @memberof FirestoreHelper
      */
     createNewDocument(db, collectionName, data) {
-        db.collection(collectionName).add(data)
+        return db.collection(collectionName).add(data)
             .then(function (docRef) {
-            console.log("Document written with ID: ", docRef.id);
+            return docRef;
         })
             .catch(function (error) {
-            console.error("Error adding document: ", error);
+            return error;
         });
     }
     /**
@@ -59,29 +64,33 @@ class FirestoreHelper {
     /**
      * Update a document
      *
-     * @param {any} db
-     * @param {any} collectionName
-     * @param {any} docId
-     * @param {any} data
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {string} docId
+     * @param {Object} data
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
      */
     updateDocument(db, collectionName, docId, data) {
-        db.collection(collectionName).doc(docId).update(data)
-            .then(() => console.log(`${docId} successfully updated!`))
-            .catch(err => console.log('Error: ', err));
+        return db.collection(collectionName).doc(docId).update(data)
+            .then(() => true)
+            .catch(err => err);
     }
     /**
      * Delete a document
      *
-     * @param {any} db
-     * @param {any} collectionName
-     * @param {any} docId
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {string} docId
+     * @returns {Promise<object>}
+     * @memberof FirestoreHelper
      */
     deleteDocument(db, collectionName, docId) {
-        db.collection(collectionName).doc(docId).delete()
+        return db.collection(collectionName).doc(docId).delete()
             .then(() => {
-            console.log(`${docId} successfully deleted!`);
+            return { status: true, message: `${docId} successfully deleted!` };
         }).catch(error => {
-            console.error("Error removing document: ", error);
+            return { status: true, message: error };
         });
     }
     /**
@@ -195,7 +204,7 @@ class FirestoreHelper {
      * @return {json}
      */
     backup(db, collectionName, subCollection = '') {
-        console.log('Getting data from: ', collectionName);
+        // console.log('Getting data from: ', collectionName);
         return new Promise((resolve, reject) => {
             const data = {};
             data[collectionName] = {};
@@ -270,24 +279,28 @@ class FirestoreHelper {
         });
     }
     /**
-     * Restore data to Firestore
+     *Restore data to Firestore
      *
-     * @param {any} db
-     * @param {any} fileName
+     * @param {*} db
+     * @param {*} fileName
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
      */
     restore(db, fileName) {
         const that = this;
-        fs.readFile(fileName, 'utf8', function (err, data) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-            // Turn string from file to an Array
-            const dataArray = JSON.parse(data);
-            that.updateCollection(db, dataArray).then(() => {
-                console.log('Successfully import collection!');
-            }).catch(error => {
-                console.log(error);
+        return new Promise((resolve, reject) => {
+            fs.readFile(fileName, 'utf8', function (err, data) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                // Turn string from file to an Array
+                const dataArray = JSON.parse(data);
+                that.updateCollection(db, dataArray).then(() => {
+                    resolve({ status: true, message: 'Successfully import collection!' });
+                }).catch(error => {
+                    reject({ status: false, message: error.message });
+                });
             });
         });
     }

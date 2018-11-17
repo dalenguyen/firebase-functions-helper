@@ -21,7 +21,7 @@ You will find this user Id from __Authentication__ tab in Firebase Console. This
 ```sh
 firebaseHelper.firebase
     .getUserbyId('user-id')
-    .then(user => console.log(user))
+    .then(user => console.log(user));
 ```
 
 ## 3. Get user through email 
@@ -31,7 +31,7 @@ This will return an object of Firebase user.
 ```sh 
 firebaseHelper.firebase
     .getUserbyEmail('email')
-    .then(user => console.log(user))
+    .then(user => console.log(user));
 ```
 
 ## 4. Get user through phone number 
@@ -41,7 +41,7 @@ This will also return an object of Firebase user.
 ```sh 
 firebaseHelper.firebase
     .getUserbyPhone('phone-number')
-    .then(user => console.log(user))
+    .then(user => console.log(user));
 ```
 
 ## 5. Delete a user by user id
@@ -49,7 +49,7 @@ firebaseHelper.firebase
 ```sh
 firebaseHelper.firebase
     .deleteUser(userId)
-    .then(res => console.log(res))
+    .then(res => console.log(res));
 ```
 
 This will return a Promise<boolean>. 
@@ -59,7 +59,7 @@ This will return a Promise<boolean>.
 ```sh
 let userList = ['userid-1', 'userid-2']
 firebaseHelper.firebase
-    .deleteUsers(userList)
+    .deleteUsers(userList);
 ```
 
 ## 7. Create a new Firebase user 
@@ -113,8 +113,7 @@ This will return an array of users. If you don't pass the max-number-of-user, th
 ```sh
 firebaseHelper.firebase
     .getAllUsers('max-number-of-users - optional')    
-    .then(users => console.log(users))   
-    })
+    .then(users => console.log(users));
 ```
 
 From this, you can delete users in bulk by combining two methods.

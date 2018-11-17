@@ -3,33 +3,39 @@ import * as fs from 'fs';
 export class FirestoreHelper {
 
     /**
-     * Create a document with id in firestore
-     * 
-     * @param {any} db Database
-     * @param {any} collectionName Collection name
-     * @param {any} docId Document ID
-     * @param {any} data 
-     * @returns 
+     *Create a document with id in firestore
+     *
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {string} docId
+     * @param {Object} data
+     * @returns {Promise<boolean>}
+     * @memberof FirestoreHelper
      */
-    createDocumentWithID (db: any, collectionName: string, docId: string, data: Object): void {
-        db.collection(collectionName).doc(docId).set(data)
-            .then(res => console.log(`${JSON.stringify(data)} is added to ${collectionName} collection`))
-            .catch(err => console.log('Error: ', err))
+    createDocumentWithID (db: any, collectionName: string, docId: string, data: Object): Promise<boolean> {
+        return db.collection(collectionName).doc(docId).set(data)
+            .then(() => true)
+            .catch(function (error) {                
+                return false;
+            });
     }
+    
     /**
      * Create a document without an ID
-     * 
-     * @param {any} db 
-     * @param {any} collectionName 
-     * @param {any} data 
+     *
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {Object} data
+     * @returns
+     * @memberof FirestoreHelper
      */
-    createNewDocument (db: any, collectionName: string, data: Object) {
-        db.collection(collectionName).add(data)
-            .then(function (docRef) {
-                console.log("Document written with ID: ", docRef.id);
+    createNewDocument (db: any, collectionName: string, data: Object): Promise<any> {
+        return db.collection(collectionName).add(data)
+            .then(function (docRef) {                
+                return docRef;
             })
-            .catch(function (error) {
-                console.error("Error adding document: ", error);
+            .catch(function (error) {                
+                return error;
             });
     }
 
@@ -52,31 +58,35 @@ export class FirestoreHelper {
 
     /**
      * Update a document
-     * 
-     * @param {any} db 
-     * @param {any} collectionName 
-     * @param {any} docId 
-     * @param {any} data 
+     *
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {string} docId
+     * @param {Object} data
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
      */
-    updateDocument (db: any, collectionName: string, docId: string, data: Object) {
-        db.collection(collectionName).doc(docId).update(data)
-            .then(() => console.log(`${docId} successfully updated!`))
-            .catch(err => console.log('Error: ', err))
+    updateDocument (db: any, collectionName: string, docId: string, data: Object): Promise<any> {
+        return db.collection(collectionName).doc(docId).update(data)
+            .then(() => true)
+            .catch(err => err)
     }
 
     /**
      * Delete a document
-     * 
-     * @param {any} db 
-     * @param {any} collectionName 
-     * @param {any} docId 
+     *
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {string} docId
+     * @returns {Promise<object>}
+     * @memberof FirestoreHelper
      */
-    deleteDocument (db: any, collectionName: string, docId: string) {
-        db.collection(collectionName).doc(docId).delete()
-            .then(() => {
-                console.log(`${docId} successfully deleted!`);
-            }).catch(error => {
-                console.error("Error removing document: ", error);
+    deleteDocument (db: any, collectionName: string, docId: string): Promise<object> {
+        return db.collection(collectionName).doc(docId).delete()
+            .then(() => {                
+                return {status: true, message: `${docId} successfully deleted!`};
+            }).catch(error => {                
+                return {status: true, message: error};
             });
     }
   
@@ -194,7 +204,7 @@ export class FirestoreHelper {
      * @return {json}
      */
     backup (db: any, collectionName: string, subCollection: string = '') {
-        console.log('Getting data from: ', collectionName);
+        // console.log('Getting data from: ', collectionName);
         return new Promise((resolve, reject) => {
             const data = {};
 
@@ -273,30 +283,32 @@ export class FirestoreHelper {
     }
 
     /**
-     * Restore data to Firestore
-     * 
-     * @param {any} db 
-     * @param {any} fileName 
+     *Restore data to Firestore
+     *
+     * @param {*} db
+     * @param {*} fileName
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
      */
-    restore (db, fileName) {
+    restore (db, fileName): Promise<any> {
         const that = this;
-
-        fs.readFile(fileName, 'utf8', function (err, data) {
-            if (err) {
-                console.log(err);
-                return;
-            }
-
-            // Turn string from file to an Array
-            const dataArray = JSON.parse(data);
-
-            that.updateCollection(db, dataArray).then(() => {
-                console.log('Successfully import collection!');
-            }).catch(error => {
-                console.log(error);
-            });
+        return new Promise((resolve, reject) => {
+            fs.readFile(fileName, 'utf8', function (err, data) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+    
+                // Turn string from file to an Array
+                const dataArray = JSON.parse(data);
+    
+                that.updateCollection(db, dataArray).then(() => {                    
+                    resolve({status: true, message: 'Successfully import collection!'});
+                }).catch(error => {                    
+                    reject({status: false, message: error.message});
+                });
+            })  
         })
-
     }
 
     /**

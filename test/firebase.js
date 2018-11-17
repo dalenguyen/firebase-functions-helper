@@ -1,15 +1,12 @@
 'use strict';
 const expect = require('chai').expect;
 const firebaseHelper = require('../dist/index.js');
-const serviceAccount = require('./serviceAccountKey.json');
-
-// Initialize Firebase project
-firebaseHelper.firebase.initializeApp(serviceAccount, serviceAccount.databaseURL);
+const app = require('./appInitialize');
 
 describe('Test firebase functions:', async () => {
     let now = new Date().getTime();
     let email = `user+${now}@dalenguyen.me`;
-    let phone = `+${now.toString().substr(2)}`;    
+    let phone = `+1${now.toString().substr(3)}`;    
     let userInfo = {
         email: email,
         emailVerified: false,
@@ -23,8 +20,8 @@ describe('Test firebase functions:', async () => {
     let userId;
 
     it('Create a new user', async () => {       
-        // Create a new user 
-        let createAUserResult = await firebaseHelper.firebase.createUser(userInfo);        
+        // Create a new user         
+        let createAUserResult = await firebaseHelper.firebase.createUser(userInfo);          
         userId = createAUserResult.data.uid;
         expect(createAUserResult.status).to.equal(true); 
 

@@ -61,4 +61,4 @@ typings/
 .next
 
 # Test files
-test/serviceAccountKey.json
+# test/serviceAccountKey.json

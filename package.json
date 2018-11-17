@@ -21,7 +21,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "test": "mocha --recursive test --exit",
+    "test": "mocha --timeout 99999999 --exit",
     "prod": "npm run build && npm run test"
   },
   "dependencies": {
@@ -39,6 +39,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eamonwhiter73/firebase-functions-helper.git"
+    "url": "git+https://github.com/dalenguyen/firebase-functions-helper.git"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
