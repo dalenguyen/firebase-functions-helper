@@ -61,7 +61,7 @@ typings/
 .next
 
 # Test files
-# test/serviceAccountKey.json
+test/serviceAccountKey.json
 
 # Intellij IDEA Files
 .idea/
