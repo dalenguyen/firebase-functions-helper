@@ -4,8 +4,8 @@ export class FirebaseHelper {
 
     /**
      * Initialize Firebase App
-     * 
-     * @param {any} serviceAccount 
+     *
+     * @param {any} serviceAccount
      * @param {any} databaseURL
      */
     initializeApp(serviceAccount: string, databaseURL: string) {
@@ -18,7 +18,7 @@ export class FirebaseHelper {
 
     /**
      * Get User Info though UserId
-     * 
+     *
      * @param {string} userId
      * @returns {Promise<any>}
      */
@@ -30,7 +30,7 @@ export class FirebaseHelper {
 
     /**
      * Get User Info though email
-     * 
+     *
      * @param {string} email
      * @returns {Promise<any>}
      * @memberof FirebaseHelper
@@ -43,7 +43,7 @@ export class FirebaseHelper {
 
     /**
      * Get User Info though phone number
-     * 
+     *
      * @param {string} phone
      * @returns {Promise<any>}
      * @memberof FirebaseHelper
@@ -54,17 +54,17 @@ export class FirebaseHelper {
             .catch(error => console.log(error))
     }
 
-    
+
     /**
      * Delete a user
-     * 
+     *
      * @param {Array<string>} userIds
      * @memberof FirebaseHelper
      */
     deleteUser(userId: string): Promise<boolean> {
         return new Promise(resolve => {
             admin.auth().deleteUser(userId)
-                .then(() => {                    
+                .then(() => {
                     resolve(true);
                 })
                 .catch(error => {
@@ -76,7 +76,7 @@ export class FirebaseHelper {
 
     /**
      * Delete user from an Array of User Ids
-     * 
+     *
      * @param {Array<string>} userIds
      * @memberof FirebaseHelper
      */
@@ -101,24 +101,24 @@ export class FirebaseHelper {
     createUser(userInfo: Object): Promise<object> {
         return new Promise((resolve) => {
             admin.auth().createUser(userInfo)
-            .then( (userRecord) => {                
-                resolve({
-                    status: true,
-                    data: userRecord
+                .then((userRecord) => {
+                    resolve({
+                        status: true,
+                        data: userRecord
+                    })
                 })
-            })
-            .catch( (error) => {                
-                resolve({
-                    status: false,
-                    data: error.message
-                })
-            });
-        })        
+                .catch((error) => {
+                    resolve({
+                        status: false,
+                        data: error.message
+                    })
+                });
+        })
     }
 
     /**
      * Update user Info though userId
-     * 
+     *
      * @param {string} userId
      * @param {Object} userInfo
      * @memberof FirebaseHelper
@@ -126,13 +126,13 @@ export class FirebaseHelper {
     updateUser(userId: string, userInfo: Object): Promise<object> {
         return new Promise(resolve => {
             admin.auth().updateUser(userId, userInfo)
-                .then( userRecord => {                    
+                .then(userRecord => {
                     resolve({
                         status: true,
                         data: userRecord
                     })
                 })
-                .catch( (error) => {                    
+                .catch((error) => {
                     resolve({
                         status: false,
                         data: error.message
@@ -143,16 +143,16 @@ export class FirebaseHelper {
 
     /**
      * Get a list of users
-     * 
-     * @param {number} [maxResults=1000] 
-     * @returns {Promise<any>} 
+     *
+     * @param {number} [maxResults=1000]
+     * @returns {Promise<any>}
      * @memberof FirebaseHelper
      */
-    getAllUsers(maxResults: number = 1000): Promise<any>{
+    getAllUsers(maxResults: number = 1000): Promise<any> {
         return admin.auth().listUsers(maxResults)
-        .then((listUsersResult) => listUsersResult.users)
-        .catch((error) => {
-            console.log("Error listing users:", error);
-        });
+            .then((listUsersResult) => listUsersResult.users)
+            .catch((error) => {
+                console.log("Error listing users:", error);
+            });
     }
 }
