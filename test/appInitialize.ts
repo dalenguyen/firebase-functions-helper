@@ -1,4 +1,4 @@
 import * as firebaseHelper from '../dist/index';
-import * as serviceAccount from './serviceAccountKey.json';
+import { serviceAccount } from './serviceAccountKey';
 
 export const app = firebaseHelper.firebase.initializeApp(serviceAccount, serviceAccount.databaseURL);

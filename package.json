@@ -22,7 +22,9 @@
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "build": "tsc",
+    "test:local": "source env.test.sh && mocha --timeout 99999999 --exit -r ts-node/register test/**/*.spec.ts",
     "test": "mocha --timeout 99999999 --exit -r ts-node/register test/**/*.spec.ts",
+    "prod:local": "rm dist/* && npm run lint && npm run build && npm run test:local",
     "prod": "rm dist/* && npm run lint && npm run build && npm run test"
   },
   "dependencies": {

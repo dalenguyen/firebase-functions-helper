@@ -6,8 +6,7 @@
     "noImplicitReturns": true,
     "outDir": "dist",
     "sourceMap": true,
-    "target": "es6",
-    "resolveJsonModule": true
+    "target": "es6"
   },
   "compileOnSave": true,
   "include": [
