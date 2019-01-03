@@ -1,12 +1,11 @@
-'use strict';
-const expect = require('chai').expect;
-const firebaseHelper = require('../dist/index.js');
-const app = require('./appInitialize');
+import { expect } from 'chai';
+import * as firebaseHelper from '../dist/index.js';
+import { app } from './appInitialize';
 
 describe('Test firebase functions:', async () => {
     let now = new Date().getTime();
     let email = `user+${now}@dalenguyen.me`;
-    let phone = `+1${now.toString().substr(3)}`;    
+    let phone = `+1${now.toString().substr(3)}`;
     let userInfo = {
         email: email,
         emailVerified: false,
@@ -16,22 +15,22 @@ describe('Test firebase functions:', async () => {
         photoURL: "http://www.example.com/12345678/photo.png",
         disabled: false
     };
-    let newDisplayName = "Yen Nguyen";    
+    let newDisplayName = "Yen Nguyen";
     let userId;
 
-    it('Create a new user', async () => {       
-        // Create a new user         
-        let createAUserResult = await firebaseHelper.firebase.createUser(userInfo);          
+    it('Create a new user', async () => {
+        // Create a new user
+        let createAUserResult = await firebaseHelper.firebase.createUser(userInfo);
         userId = createAUserResult.data.uid;
-        expect(createAUserResult.status).to.equal(true); 
+        expect(createAUserResult.status).to.equal(true);
 
         // User is already existed
         firebaseHelper.firebase.createUser(userInfo).then(res => {
-            expect(res.status).to.equal(false);            
+            expect(res.status).to.equal(false);
         });
     });
 
-    it('Update a user',  async () => {                
+    it('Update a user',  async () => {
         userInfo.displayName = newDisplayName;
         let updateAUserResult = await firebaseHelper.firebase.updateUser(userId, userInfo);
         expect(updateAUserResult.status).to.equal(true);
@@ -42,7 +41,6 @@ describe('Test firebase functions:', async () => {
         let getAllUsersResult = await firebaseHelper.firebase.getAllUsers(10);
         expect(typeof getAllUsersResult).to.equal('object');
         expect(getAllUsersResult.length).to.be.above(0);
-        
     });
 
     it('Get user by id', async () => {
@@ -64,8 +62,8 @@ describe('Test firebase functions:', async () => {
     });
 
     it('Delete a user', async () => {
-        let deleteAUserResult = await firebaseHelper.firebase.deleteUser(userId);        
+        let deleteAUserResult = await firebaseHelper.firebase.deleteUser(userId);
         expect(deleteAUserResult).to.equal(true);
     });
-    
+
 })

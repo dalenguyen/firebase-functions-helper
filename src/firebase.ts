@@ -58,7 +58,7 @@ export class FirebaseHelper {
     /**
      * Delete a user
      *
-     * @param {Array<string>} userIds
+     * @param {string} userId
      * @memberof FirebaseHelper
      */
     deleteUser(userId: string): Promise<boolean> {
@@ -82,12 +82,11 @@ export class FirebaseHelper {
      */
     deleteUsers(userIds: Array<string>): void {
         userIds.map(userId => {
-            this.deleteUser(userId);
-            // admin.auth().deleteUser(userId)
-            //     .then(() => {
-            //         console.log("Successfully deleted user: ", userId);
-            //     })
-            //     .catch(error => console.log(error))
+            this.deleteUser(userId)
+                .then(() => {
+                    console.log("Successfully deleted user: ", userId);
+                })
+                .catch(error => console.log(error))
         });
     }
 

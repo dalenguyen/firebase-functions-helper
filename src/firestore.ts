@@ -171,7 +171,7 @@ export class FirestoreHelper {
      * @returns {Promise<any>}
      * @memberof FirestoreHelper
      */
-    queryData(db: any, collectionName: string, queryArray: [any]): Promise<any> {
+    queryData(db: any, collectionName: string, queryArray: Array<any>): Promise<any> {
         return new Promise((resolve, reject) => {
             const dataRef = db.collection(collectionName);
             const queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
