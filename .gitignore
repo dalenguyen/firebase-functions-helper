@@ -62,3 +62,6 @@ typings/
 
 # Test files
 # test/serviceAccountKey.json
+
+# Intellij IDEA Files
+.idea/
