@@ -1,11 +1,14 @@
 const serviceAccountJson = process.env.TYPE === undefined ? require('./serviceAccountKey.json') : {};
 
+console.log(process.env.PRIVATE_KEY.substr(0,50));
+console.log(process.env.PRIVATE_KEY.replace(/\\n/g, '\n').substr(0,50));
+
 // Windows doesn't recognize source command for setting environment
 export const serviceAccount =  process.env.TYPE === undefined ? serviceAccountJson : {
   "type": process.env.TYPE,
   "projectId": process.env.PROJECT_ID,
   "privateKeyId": process.env.PRIVATE_KEY_ID,
-  "privateKey": JSON.parse(process.env.PRIVATE_KEY),
+  "privateKey": process.env.PRIVATE_KEY.replace(/\\n/g, '\n'),
   "clientEmail": process.env.CLIENT_EMAIL,
   "clientId": process.env.CLIENT_ID,
   "authURI": process.env.AUTH_URI,
