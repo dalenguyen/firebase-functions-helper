@@ -61,4 +61,10 @@ typings/
 .next
 
 # Test files
-# test/serviceAccountKey.json
+test/serviceAccountKey.json
+
+# Intellij IDEA Files
+.idea/
+
+# Test environment variable
+env.test.sh

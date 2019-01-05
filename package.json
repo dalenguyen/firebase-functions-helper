@@ -20,18 +20,25 @@
   ],
   "main": "dist/index.js",
   "scripts": {
+    "lint": "tslint --project tsconfig.json",
     "build": "tsc",
-    "test": "mocha --timeout 99999999 --exit",
-    "prod": "npm run build && npm run test"
+    "test:local": "source env.test.sh && mocha --timeout 99999999 --exit -r ts-node/register test/**/*.spec.ts",
+    "test": "mocha --timeout 99999999 --exit -r ts-node/register test/**/*.spec.ts",
+    "prod:local": "rm dist/* && npm run lint && npm run build && npm run test:local",
+    "prod": "rm dist/* && npm run lint && npm run build && npm run test"
   },
   "dependencies": {
-    "firebase-admin": "^5.13.1"
+    "firebase-admin": "^6.4.0"
   },
   "deprecated": false,
   "devDependencies": {
-    "chai": "^4.1.2",
-    "mocha": "^5.1.1",
-    "typescript": "^2.8.3"
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0",
+    "ts-node": "^7.0.1",
+    "tslint": "^5.12.0",
+    "typescript": "^3.2.2"
   },
   "engines": {
     "node": ">=7.6.0"
