@@ -1,6 +1,6 @@
 {
   "name": "firebase-functions-helper",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A helper NPM package for Firebase Cloud Functions",
   "author": {
     "name": "Dale Nguyen",
@@ -25,7 +25,7 @@
     "test:local": "source env.test.sh && mocha --timeout 99999999 --exit -r ts-node/register test/**/*.spec.ts",
     "test": "mocha --timeout 99999999 --exit -r ts-node/register test/**/*.spec.ts",
     "prod:local": "rm dist/* && npm run lint && npm run build && npm run test:local",
-    "prod": "rm dist/* && npm run lint && npm run build && npm run test"
+    "prod": "npm run lint && npm run build && npm run test"
   },
   "dependencies": {
     "firebase-admin": "^6.4.0"

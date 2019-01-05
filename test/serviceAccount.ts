@@ -1,4 +1,7 @@
-export const serviceAccount = {
+import * as serviceAccountJson from './serviceAccountKey.json';
+
+// Windows doesn't recognize source command for setting environment
+export const serviceAccount =  process.env.TYPE === undefined ? serviceAccountJson : {
   "type": process.env.TYPE,
   "projectId": process.env.PROJECT_ID,
   "privateKeyId": process.env.PRIVATE_KEY_ID,

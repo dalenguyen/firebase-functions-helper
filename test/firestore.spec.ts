@@ -6,10 +6,10 @@ const db = app.firestore;
 db.settings({ timestampsInSnapshots: true });
 
 describe('Test firestore functions:', () => {
-    let collectionName = 'test';
+    const collectionName = 'test';
     it('Restore', async () => {
         try {
-            let result = await firebaseHelper.firestore.restore(db, 'test/import-to-firestore.json');
+            const result = await firebaseHelper.firestore.restore(db, 'test/import-to-firestore.json');
             expect(result.status).to.equal(true);
         } catch (error) {
             console.log(error);
