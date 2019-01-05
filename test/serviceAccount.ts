@@ -1,4 +1,4 @@
-import * as serviceAccountJson from './serviceAccountKey.json';
+const serviceAccountJson = process.env.TYPE === undefined ? require('./serviceAccountKey.json') : {};
 
 // Windows doesn't recognize source command for setting environment
 export const serviceAccount =  process.env.TYPE === undefined ? serviceAccountJson : {
