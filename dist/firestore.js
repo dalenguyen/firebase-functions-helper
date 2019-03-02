@@ -183,7 +183,10 @@ class FirestoreHelper {
     queryData(db, collectionName, queryArray, orderBy = null) {
         return new Promise((resolve, reject) => {
             const dataRef = db.collection(collectionName);
-            let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            let queryRef = dataRef;
+            queryArray.map(query => {
+                queryRef = queryRef.where(query[0], query[1], query[2]);
+            });
             if (orderBy !== null) {
                 if (typeof orderBy[1] === undefined) {
                     orderBy[1] = 'asc';

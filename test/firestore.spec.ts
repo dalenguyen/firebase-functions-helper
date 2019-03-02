@@ -100,7 +100,7 @@ describe('Test firestore functions:', () => {
         expect(result).to.equal(false);
     });
     it('Query Data without order', async () => {
-        const query = ['website', '==', 'dalenguyen.me'];        
+        const query = [['website', '==', 'dalenguyen.me']];        
         let result;
         try {
             result = await firebaseHelper.firestore.queryData(db, collectionName, query);            
@@ -110,11 +110,21 @@ describe('Test firestore functions:', () => {
         expect(typeof result['first-key']).to.equal('object');
     });
     it('Query Data with order', async () => {
-        const query = ['website', '==', 'dalenguyen.me'];
+        const query = [['website', '==', 'dalenguyen.me']];
         const orderBy = ['email', 'desc'];
         let result;
         try {
             result = await firebaseHelper.firestore.queryData(db, collectionName, query, orderBy);            
+        } catch (error) {
+            console.log(error);
+        }
+        expect(typeof result['first-key']).to.equal('object');
+    });
+    it('Query Data with multi queries', async () => {
+        const query = [['website', '==', 'dalenguyen.me'], ['email', '==', 'dungnq@itbox4vn.com']];        
+        let result;
+        try {
+            result = await firebaseHelper.firestore.queryData(db, collectionName, query);                   
         } catch (error) {
             console.log(error);
         }

@@ -175,7 +175,11 @@ export class FirestoreHelper {
     queryData(db: any, collectionName: string, queryArray: Array<any>, orderBy: Array<any> = null): Promise<any> {
         return new Promise((resolve, reject) => {
             const dataRef = db.collection(collectionName);
-            let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            
+            let queryRef = dataRef;
+            queryArray.map(query => {
+                queryRef = queryRef.where(query[0],query[1],query[2]);
+            })
             
             if (orderBy !== null) {
                 if (typeof orderBy[1] === undefined) {
