@@ -142,13 +142,17 @@ firebaseHelper.firestore
 
 ## 9. Query data from firestore
 
-This will return a Promise<array> of documents
+This will return a Promise<array> of documents. 
+
+The orderBy parameter is OPTIONAL.
 
 ```sh
 // Search for data ( <, <=, ==, >, or >= )
 const queryArray = ['website', '==', 'dalenguyen.me'];
+const orderBy = ['email', 'desc'];
+
 firebaseHelper.firestore
-  .queryData(db, 'collection-name', queryArray)
+  .queryData(db, 'collection-name', queryArray, orderby)
   .then(docs => console.log(docs));
 ```
 

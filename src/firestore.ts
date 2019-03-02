@@ -167,14 +167,23 @@ export class FirestoreHelper {
      *
      * @param {*} db
      * @param {string} collectionName
-     * @param {[any]} queryArray
+     * @param {Array<any>} queryArray
+     * @param {Array<any>} orderBy
      * @returns {Promise<any>}
      * @memberof FirestoreHelper
      */
-    queryData(db: any, collectionName: string, queryArray: Array<any>): Promise<any> {
+    queryData(db: any, collectionName: string, queryArray: Array<any>, orderBy: Array<any> = null): Promise<any> {
         return new Promise((resolve, reject) => {
             const dataRef = db.collection(collectionName);
-            const queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            let queryRef = dataRef.where(queryArray[0], queryArray[1], queryArray[2]);
+            
+            if (orderBy !== null) {
+                if (typeof orderBy[1] === undefined) {
+                    orderBy[1] = 'asc';
+                }                
+                queryRef = queryRef.orderBy(orderBy[0], orderBy[1]);
+            }
+
             const results = {};
 
             queryRef.get()
