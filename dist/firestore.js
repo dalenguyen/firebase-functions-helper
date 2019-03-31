@@ -89,7 +89,7 @@ class FirestoreHelper {
      * @param {*} db
      * @param {string} collectionName
      * @param {string} docId
-     * @returns {Promise<object>}
+     * @returns {Promise<Object>}
      * @memberof FirestoreHelper
      */
     deleteDocument(db, collectionName, docId) {
@@ -272,7 +272,7 @@ class FirestoreHelper {
         });
     }
     /**
-     * Add sub collection to data object if possible
+     * Add sub collection to data Object if possible
      *
      * @param {any} db
      * @param {any} key

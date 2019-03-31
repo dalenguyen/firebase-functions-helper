@@ -13,7 +13,7 @@ export class FirebaseHelper {
             credential: admin.credential.cert(serviceAccount),
             databaseURL: databaseURL
         });
-        return { 'firestore': admin.firestore() };
+        return { 'firestore': admin.firestore(), 'realtime': admin.database() };
     }
 
     /**
@@ -53,7 +53,6 @@ export class FirebaseHelper {
             .then(user => user)
             .catch(error => console.log(error))
     }
-
 
     /**
      * Delete a user

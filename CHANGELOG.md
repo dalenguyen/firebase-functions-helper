@@ -10,6 +10,11 @@
 
 ---
 
+## [0.7.0] - 2019-3-31
+
+#### :rocket: New Feature
+- Support Realtime Database features
+
 ## [0.6.5] - 2019-3-30
 
 #### :memo: Documentation

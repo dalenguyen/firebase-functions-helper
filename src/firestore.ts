@@ -78,10 +78,10 @@ export class FirestoreHelper {
      * @param {*} db
      * @param {string} collectionName
      * @param {string} docId
-     * @returns {Promise<object>}
+     * @returns {Promise<Object>}
      * @memberof FirestoreHelper
      */
-    deleteDocument(db: any, collectionName: string, docId: string): Promise<object> {
+    deleteDocument(db: any, collectionName: string, docId: string): Promise<Object> {
         return db.collection(collectionName).doc(docId).delete()
             .then(() => {
                 return { status: true, message: `${docId} successfully deleted!` };
@@ -271,7 +271,7 @@ export class FirestoreHelper {
     }
 
     /**
-     * Add sub collection to data object if possible
+     * Add sub collection to data Object if possible
      *
      * @param {any} db
      * @param {any} key

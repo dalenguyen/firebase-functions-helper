@@ -20,7 +20,7 @@ class FirebaseHelper {
             credential: admin.credential.cert(serviceAccount),
             databaseURL: databaseURL
         });
-        return { 'firestore': admin.firestore() };
+        return { 'firestore': admin.firestore(), 'realtime': admin.database() };
     }
     /**
      * Get User Info though UserId

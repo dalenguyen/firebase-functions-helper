@@ -61,7 +61,7 @@ declare module "*.json" {
 
 ### [Working with Firebase](docs/firebase.md)
 ### [Working with Firestore](docs/firestore.md)
-### Working with Realtime Database (Will be updated!)
+### [Working with Realtime Database](docs/realtime.md)
 
 ## Contributions
 
