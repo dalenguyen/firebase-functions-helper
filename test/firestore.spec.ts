@@ -138,6 +138,6 @@ describe('Test firestore functions:', () => {
             console.log(error);
         }
         expect(result.status).to.equal(true);
-        expect(result.message).to.equal('1 successfully deleted!');
+        expect(result.message).to.include('1 successfully deleted!');
     });
 });

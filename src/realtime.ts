@@ -10,7 +10,7 @@ export class RealtimeHelper {
     getData(db: any, path: string): Promise<Object> {
         const ref = db.ref(path);
         return new Promise((resolve, reject) => {
-            ref.once("value", function(snapshot) {    
+            ref.once('value', function(snapshot) {    
                 const data = snapshot.val();                
                 if (data) {                          
                     if (data[0] === undefined) { // remove first empty item
@@ -18,7 +18,7 @@ export class RealtimeHelper {
                     }                
                     resolve(data);
                 } else {
-                    reject(`Data can't be found!`)
+                    reject('Data can\'t be found!')
                 }                
             });
         })        

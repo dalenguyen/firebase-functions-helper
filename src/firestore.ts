@@ -84,9 +84,9 @@ export class FirestoreHelper {
     deleteDocument(db: any, collectionName: string, docId: string): Promise<Object> {
         return db.collection(collectionName).doc(docId).delete()
             .then(() => {
-                return { status: true, message: `${docId} successfully deleted!` };
+                return { status: true, message: docId + ' successfully deleted!' };
             }).catch(error => {
-                return { status: true, message: error };
+                return { status: false, message: error };
             });
     }
 
@@ -102,7 +102,7 @@ export class FirestoreHelper {
     deleteDocumentFromSubcollection(db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string) {
         db.collection(collectionName).doc(docId).collection(collectionNameTwo).doc(docIdTwo).delete()
             .then(() => {
-                console.log(`${docIdTwo} successfully deleted!`);
+                console.log(docIdTwo + ' successfully deleted!');
             }).catch(error => {
                 console.error("Error removing document: ", error);
             });
@@ -236,7 +236,7 @@ export class FirestoreHelper {
                 });
 
             results.then(dt => {
-                if (subCollection === '') {
+                if ( !subCollection ) {
                     resolve(dt)
                 } else {
                     this.getSubCollection(db, data, dt, collectionName, subCollection).then(() => {

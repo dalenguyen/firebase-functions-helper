@@ -10,6 +10,15 @@
 
 ---
 
+## [0.7.1] - 2019-5-31
+
+#### - :nail_care:  [Polish]
+- Update packages and minify js files
+
+#### - :bug:        [Bug Fix]
+- Fixed Error in Backup method to get subCollections #16
+- Fixed Wrong status when deleting document has error #17
+
 ## [0.7.0] - 2019-3-31
 
 #### :rocket: New Feature
