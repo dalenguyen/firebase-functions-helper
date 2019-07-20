@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import * as firebaseHelper from '../dist/index.js';
-import { app } from './appInitialize';
+// import { app } from './appInitialize';
 
 describe('Test firebase functions:', async () => {
     const now = new Date().getTime();
@@ -17,6 +17,7 @@ describe('Test firebase functions:', async () => {
     };
     const newDisplayName = "Yen Nguyen";
     let userId;
+    // const db = app.firestore;
 
     it('Create a new user', async () => {
         // Create a new user
@@ -65,5 +66,13 @@ describe('Test firebase functions:', async () => {
         const deconsteAUserResult = await firebaseHelper.firebase.deleteUser(userId);
         expect(deconsteAUserResult).to.equal(true);
     });
+
+    it('Auth function', () => {
+        firebaseHelper.firebase.auth().verifyIdToken('123')
+        .catch(function(error) {
+          // Handle error
+          expect(error.message).to.contain('Decoding Firebase ID token failed');
+        });
+    })
 
 })

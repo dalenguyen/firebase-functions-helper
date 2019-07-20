@@ -10,6 +10,7 @@
     "target": "es6",
     "esModuleInterop": true,
     "types": [ "mocha", "chai", "node" ],
+    "declaration": true
   },
   "compileOnSave": true,
   "include": [

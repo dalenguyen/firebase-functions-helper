@@ -1,5 +1,10 @@
 import * as admin from 'firebase-admin';
 
+interface UserRecord {
+    status: boolean
+    data: admin.auth.UserRecord
+}
+
 export class FirebaseHelper {
 
     /**
@@ -96,7 +101,7 @@ export class FirebaseHelper {
      * @returns {Promise<any>}
      * @memberof FirebaseHelper
      */
-    createUser(userInfo: Object): Promise<object> {
+    createUser(userInfo: Object): Promise<UserRecord> {
         return new Promise((resolve) => {
             admin.auth().createUser(userInfo)
                 .then((userRecord) => {
@@ -121,7 +126,7 @@ export class FirebaseHelper {
      * @param {Object} userInfo
      * @memberof FirebaseHelper
      */
-    updateUser(userId: string, userInfo: Object): Promise<object> {
+    updateUser(userId: string, userInfo: Object): Promise<UserRecord> {
         return new Promise(resolve => {
             admin.auth().updateUser(userId, userInfo)
                 .then(userRecord => {
@@ -152,5 +157,12 @@ export class FirebaseHelper {
             .catch((error) => {
                 console.log("Error listing users:", error);
             });
+    }
+
+    /**
+     * Auth function from Firebase Admin SDK
+     */
+    auth(): admin.auth.Auth {
+        return admin.auth();
     }
 }

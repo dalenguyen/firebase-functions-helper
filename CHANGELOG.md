@@ -9,8 +9,13 @@
 > - :nail_care:  [Polish]
 
 ---
+## [0.7.3] - 2019-7-20
 
-## [0.7.1] - 2019-7-20
+#### :rocket: New Feature
+- Added support for auth() #20
+- Added declarative types
+
+## [0.7.2] - 2019-7-20
 
 #### - :nail_care:  [Polish]
 - Update packages
