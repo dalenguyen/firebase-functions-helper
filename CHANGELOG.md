@@ -9,6 +9,11 @@
 > - :nail_care:  [Polish]
 
 ---
+
+## [0.7.4] - 2019-10-05
+#### - :nail_care:  [Polish]
+- Update packages
+
 ## [0.7.3] - 2019-7-20
 
 #### :rocket: New Feature
