@@ -1,6 +1,6 @@
 {
   "name": "firebase-functions-helper",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "description": "A helper NPM package for Firebase Cloud Functions",
   "author": {
     "name": "Dale Nguyen",
@@ -19,7 +19,7 @@
     "helper"
   ],
   "main": "dist/index.js",
-  "types": "dist.index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "build": "tsc && npm run minify",
@@ -31,17 +31,17 @@
   },
   "dependencies": {
     "chai": "^4.2.0",
-    "firebase-admin": "^6.5.1"
+    "firebase-admin": "^8.9.0"
   },
   "deprecated": false,
   "devDependencies": {
-    "@types/chai": "^4.1.7",
+    "@types/chai": "^4.2.7",
     "@types/mocha": "^5.2.7",
     "jsmin": "^1.0.1",
-    "mocha": "^5.2.0",
-    "ts-node": "^7.0.1",
-    "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "mocha": "^6.2.2",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "typescript": "^3.7.4"
   },
   "engines": {
     "node": ">=7.6.0"
