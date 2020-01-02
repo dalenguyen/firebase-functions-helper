@@ -177,7 +177,7 @@ export class FirestoreHelper {
             const dataRef = db.collection(collectionName);
             
             let queryRef = dataRef;
-            queryArray.map(query => {
+            queryArray.forEach(query => {
                 queryRef = queryRef.where(query[0],query[1],query[2]);
             })
             
@@ -264,7 +264,7 @@ export class FirestoreHelper {
      * @param {any} subCollection
      */
     async getSubCollection(db: any, data: Object, dt: Object, collectionName: string, subCollection: string) {
-        for (const [key, value] of Object.entries([dt[collectionName]][0])) {
+        for (const [key] of Object.entries([dt[collectionName]][0])) {
             data[collectionName][key]['subCollection'] = {};
             await this.addSubCollection(db, key, data[collectionName][key]['subCollection'], collectionName, subCollection);
         }

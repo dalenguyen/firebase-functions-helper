@@ -1,6 +1,7 @@
-"use strict";var __awaiter=(this&&this.__awaiter)||function(thisArg,_arguments,P,generator){return new(P||(P=Promise))(function(resolve,reject){function fulfilled(value){try{step(generator.next(value));}catch(e){reject(e);}}
+"use strict";var __awaiter=(this&&this.__awaiter)||function(thisArg,_arguments,P,generator){function adopt(value){return value instanceof P?value:new P(function(resolve){resolve(value);});}
+return new(P||(P=Promise))(function(resolve,reject){function fulfilled(value){try{step(generator.next(value));}catch(e){reject(e);}}
 function rejected(value){try{step(generator["throw"](value));}catch(e){reject(e);}}
-function step(result){result.done?resolve(result.value):new P(function(resolve){resolve(result.value);}).then(fulfilled,rejected);}
+function step(result){result.done?resolve(result.value):adopt(result.value).then(fulfilled,rejected);}
 step((generator=generator.apply(thisArg,_arguments||[])).next());});};var __importStar=(this&&this.__importStar)||function(mod){if(mod&&mod.__esModule)return mod;var result={};if(mod!=null)for(var k in mod)if(Object.hasOwnProperty.call(mod,k))result[k]=mod[k];result["default"]=mod;return result;};Object.defineProperty(exports,"__esModule",{value:true});const fs=__importStar(require("fs"));class FirestoreHelper{createDocumentWithID(db,collectionName,docId,data){return db.collection(collectionName).doc(docId).set(data).then(()=>true).catch(function(error){return false;});}
 createNewDocument(db,collectionName,data){return db.collection(collectionName).add(data).then(function(docRef){return docRef;}).catch(function(error){return error;});}
 updateDocument(db,collectionName,docId,data){return db.collection(collectionName).doc(docId).update(data).then(()=>true).catch(err=>err);}
@@ -10,13 +11,13 @@ checkDocumentExists(db,collectionName,docId){const dbRef=db.collection(collectio
 else{return{exists:true,data:doc.data()};}}).catch(err=>{console.log('Error getting document',err);});}
 getDocument(db,collectionName,documentId){const docRef=db.collection(collectionName).doc(documentId);return docRef.get().then(function(doc){if(doc.exists){return doc.data();}
 else{console.log("No such document!");return false;}}).catch(function(error){console.log("Error getting document:",error);});}
-queryData(db,collectionName,queryArray,orderBy=null){return new Promise((resolve,reject)=>{const dataRef=db.collection(collectionName);let queryRef=dataRef;queryArray.map(query=>{queryRef=queryRef.where(query[0],query[1],query[2]);});if(orderBy!==null){if(typeof orderBy[1]===undefined){orderBy[1]='asc';}
+queryData(db,collectionName,queryArray,orderBy=null){return new Promise((resolve,reject)=>{const dataRef=db.collection(collectionName);let queryRef=dataRef;queryArray.forEach(query=>{queryRef=queryRef.where(query[0],query[1],query[2]);});if(orderBy!==null){if(typeof orderBy[1]===undefined){orderBy[1]='asc';}
 queryRef=queryRef.orderBy(orderBy[0],orderBy[1]);}
 const results={};queryRef.get().then(snapshot=>{snapshot.forEach(doc=>{results[doc.id]=doc.data();});if(Object.keys(results).length>0){resolve(results);}
 else{resolve('No such document!');}}).catch(err=>{reject(false);console.log('Error getting documents',err);});});}
 backup(db,collectionName,subCollection=''){return new Promise((resolve,reject)=>{const data={};data[collectionName]={};const results=db.collection(collectionName).get().then(snapshot=>{snapshot.forEach(doc=>{data[collectionName][doc.id]=doc.data();});return data;}).catch(error=>{console.log(error);});results.then(dt=>{if(!subCollection){resolve(dt);}
 else{this.getSubCollection(db,data,dt,collectionName,subCollection).then(()=>{resolve(data);}).catch(error=>{console.log(error);reject(error);});}}).catch(error=>{console.log(error);reject(error);});});}
-getSubCollection(db,data,dt,collectionName,subCollection){return __awaiter(this,void 0,void 0,function*(){for(const[key,value]of Object.entries([dt[collectionName]][0])){data[collectionName][key]['subCollection']={};yield this.addSubCollection(db,key,data[collectionName][key]['subCollection'],collectionName,subCollection);}});}
+getSubCollection(db,data,dt,collectionName,subCollection){return __awaiter(this,void 0,void 0,function*(){for(const[key]of Object.entries([dt[collectionName]][0])){data[collectionName][key]['subCollection']={};yield this.addSubCollection(db,key,data[collectionName][key]['subCollection'],collectionName,subCollection);}});}
 addSubCollection(db,key,subData,collectionName,subCollection){return new Promise((resolve,reject)=>{db.collection(collectionName).doc(key).collection(subCollection).get().then(snapshot=>{snapshot.forEach(subDoc=>{subData[subDoc.id]=subDoc.data();resolve('Added data');});}).catch(error=>{reject(false);console.log(error);});});}
 restore(db,fileName){const that=this;return new Promise((resolve,reject)=>{fs.readFile(fileName,'utf8',function(err,data){if(err){console.log(err);return;}
 const dataArray=JSON.parse(data);that.updateCollection(db,dataArray).then(()=>{resolve({status:true,message:'Successfully import collection!'});}).catch(error=>{reject({status:false,message:error.message});});});});}
