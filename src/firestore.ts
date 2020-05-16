@@ -208,6 +208,56 @@ export class FirestoreHelper {
         })
     }
 
+     /**
+     * Query data from Firestore with Pagination.
+     *
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {Array<any>} queryArray
+     * @param {Array<any>} orderBy
+     * @param {number} page
+     * @param {number} size
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
+     */
+     queryDataWithPagiation(dbp: any, collectionName: string, queryArray: Array<any>, orderBy: Array<any>, page: number, size: number ): Promise<any> {
+        return new Promise((resolve, reject) => {
+            const dataRef = dbp.collection(collectionName);
+            const limit = size||10;
+            const offset = (page -1) * limit;
+            console.log("Limit is"+limit+" offset is :"+offset);
+            let queryRef = dataRef;
+            queryArray.forEach(query => {
+                queryRef = queryRef.where(query[0],query[1],query[2]);
+            })
+            
+            if (orderBy !== null) {
+                if (typeof orderBy[1] === undefined) {
+                    orderBy[1] = 'asc';
+                }                
+                queryRef = queryRef.orderBy(orderBy[0], orderBy[1]);
+            }
+
+            const results : {[k: string]: any}= {};
+
+            queryRef.limit(limit).offset(offset).get()
+                .then((snapshot: any )=> {
+                    snapshot.forEach((doc:any) => {
+                        results[doc.id] = doc.data();
+                    });
+                    if (Object.keys(results).length > 0) {
+                        resolve(results);
+                    } else {
+                        resolve('No such document!');
+                    }
+                })
+                .catch((err:any) => {
+                    reject(false);
+                    console.log('Error getting documents', err);
+                });
+        })
+    }
+
     /**
      * Backup data from Firestore
      *

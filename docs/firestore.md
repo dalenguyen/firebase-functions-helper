@@ -156,6 +156,24 @@ firebaseHelper.firestore
   .then(docs => console.log(docs));
 ```
 
-## 10. Next Steps
+## 10. Query data from firestore with pagination.
+
+This will return a Promise<array> of documents.
+
+The orderBy parameter is OPTIONAL.
+
+```sh
+// Search for data ( <, <=, ==, >, or >= )
+const queryArray = [['website', '==', 'dalenguyen.me'], ['email', '==', 'dungnq@itbox4vn.com']];
+const orderBy = ['email', 'desc'];
+const size = 10;
+const page = 1;
+
+firebaseHelper.firestore
+  .queryDataWithPagiation(db, 'collection-name', queryArray, orderby, page, size)
+  .then(docs => console.log(docs));
+```
+
+## 11. Next Steps
 
 If you want to add more features, please make a request in the [Issue Tracker](https://github.com/dalenguyen/firebase-functions-helper/issues)
