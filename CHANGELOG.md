@@ -11,6 +11,12 @@
 
 ---
 
+## [0.8.0] - 2020-08-02
+
+#### :rocket: New Feature
+
+- Query data from firestore with pagination
+
 ## [0.7.5] - 2019-1-2
 
 #### - :nail_care: [Polish]
