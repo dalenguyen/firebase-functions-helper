@@ -11,8 +11,8 @@ export declare class FirebaseHelper {
      * @param {any} databaseURL
      */
     initializeApp(serviceAccount: string, databaseURL: string): {
-        'firestore': FirebaseFirestore.Firestore;
-        'realtime': admin.database.Database;
+        firestore: FirebaseFirestore.Firestore;
+        realtime: import("firebase-admin/lib/database").admin.database.Database;
     };
     /**
      * Get User Info though UserId

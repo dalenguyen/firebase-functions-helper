@@ -17,6 +17,10 @@
 
 - Query data from firestore with pagination
 
+#### - :nail_care: [Polish]
+
+- Update packages
+
 ## [0.7.5] - 2019-1-2
 
 #### - :nail_care: [Polish]

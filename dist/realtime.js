@@ -1,4 +1,4 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:true});class RealtimeHelper{getData(db,path){const ref=db.ref(path);return new Promise((resolve,reject)=>{ref.once('value',function(snapshot){const data=snapshot.val();if(data){if(data[0]===undefined){data.splice&&data.splice(0,1);}
+"use strict";Object.defineProperty(exports,"__esModule",{value:true});exports.RealtimeHelper=void 0;class RealtimeHelper{getData(db,path){const ref=db.ref(path);return new Promise((resolve,reject)=>{ref.once('value',function(snapshot){const data=snapshot.val();if(data){if(data[0]===undefined){data.splice&&data.splice(0,1);}
 resolve(data);}
 else{reject('Data can\'t be found!');}});});}
 saveData(db,path,data,remove=true){const ref=db.ref(path);return new Promise((resolve,reject)=>{if(remove){ref.set(data,(error)=>{if(error){reject({status:false,message:error});}

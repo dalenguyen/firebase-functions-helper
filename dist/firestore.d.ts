@@ -21,16 +21,16 @@ export declare class FirestoreHelper {
      */
     createNewDocument(db: any, collectionName: string, data: Object): Promise<any>;
     /**
-    * Create a document with id in firestore
-    *
-    * @param {any} db
-    * @param {any} collectionName
-    * @param {any} docID
-    * @param {any} collectionNameTwo
-    * @param {any} docIDTwo
-    * @param {any} data
-    * @returns
-    */
+     * Create a document with id in firestore
+     *
+     * @param {any} db
+     * @param {any} collectionName
+     * @param {any} docID
+     * @param {any} collectionNameTwo
+     * @param {any} docIDTwo
+     * @param {any} data
+     * @returns
+     */
     /**
      * Update a document
      *
@@ -53,24 +53,24 @@ export declare class FirestoreHelper {
      */
     deleteDocument(db: any, collectionName: string, docId: string): Promise<Object>;
     /**
-    * Delete a document from Sub Collection
-    *
-    * @param {any} db
-    * @param {any} collectionName
-    * @param {any} docId
-    * @param {any} collectionNameTwo
-    * @param {any} docIdTwo
-    */
+     * Delete a document from Sub Collection
+     *
+     * @param {any} db
+     * @param {any} collectionName
+     * @param {any} docId
+     * @param {any} collectionNameTwo
+     * @param {any} docIdTwo
+     */
     deleteDocumentFromSubcollection(db: any, collectionName: string, docId: string, collectionNameTwo: string, docIdTwo: string): void;
     /**
-    * Check where a document exists or not
-    *
-    * @param {any} db
-    * @param {string} collectionName
-    * @param {string} docId
-    * @returns {Promise<any>}
-    * @memberof FirestoreHelper
-    */
+     * Check where a document exists or not
+     *
+     * @param {any} db
+     * @param {string} collectionName
+     * @param {string} docId
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
+     */
     checkDocumentExists(db: any, collectionName: string, docId: string): Promise<any>;
     /**
      * Get a document from document Id
@@ -93,6 +93,19 @@ export declare class FirestoreHelper {
      * @memberof FirestoreHelper
      */
     queryData(db: any, collectionName: string, queryArray: Array<any>, orderBy?: Array<any>): Promise<any>;
+    /**
+     * Query data from Firestore with Pagination.
+     *
+     * @param {*} db
+     * @param {string} collectionName
+     * @param {Array<any>} queryArray
+     * @param {Array<any>} orderBy
+     * @param {number} page
+     * @param {number} size
+     * @returns {Promise<any>}
+     * @memberof FirestoreHelper
+     */
+    queryDataWithPagiation(dbp: any, collectionName: string, queryArray: Array<any>, orderBy: Array<any>, page: number, size: number): Promise<any>;
     /**
      * Backup data from Firestore
      *
