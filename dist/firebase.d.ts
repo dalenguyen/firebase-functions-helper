@@ -12,7 +12,7 @@ export declare class FirebaseHelper {
      */
     initializeApp(serviceAccount: string, databaseURL: string): {
         firestore: FirebaseFirestore.Firestore;
-        realtime: import("firebase-admin/lib/database").admin.database.Database;
+        realtime: admin.database.Database;
     };
     /**
      * Get User Info though UserId
