@@ -7,39 +7,39 @@ In this part, you will have the ability to initialize your Firebase App and work
 This should be the first step before you do anything else on your project
 
 ```sh
-const firebaseHelper = require('firebase-functions-helper');
+const { firebaseHelper } = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
-firebaseHelper.firebase.initializeApp(serviceAccount, databaseURL);
+firebaseHelper.initializeApp(serviceAccount, databaseURL);
 ```
 
 ## 2. Get user though userId
 
-You will find this user Id from __Authentication__ tab in Firebase Console. This will return an object of Firebase user.
+You will find this user Id from **Authentication** tab in Firebase Console. This will return an object of Firebase user.
 
 ```sh
-firebaseHelper.firebase
+firebaseHelper
     .getUserbyId('user-id')
     .then(user => console.log(user));
 ```
 
-## 3. Get user through email 
+## 3. Get user through email
 
 This will return an object of Firebase user.
 
-```sh 
-firebaseHelper.firebase
+```sh
+firebaseHelper
     .getUserbyEmail('email')
     .then(user => console.log(user));
 ```
 
-## 4. Get user through phone number 
+## 4. Get user through phone number
 
 This will also return an object of Firebase user.
 
-```sh 
-firebaseHelper.firebase
+```sh
+firebaseHelper
     .getUserbyPhone('phone-number')
     .then(user => console.log(user));
 ```
@@ -47,22 +47,22 @@ firebaseHelper.firebase
 ## 5. Delete a user by user id
 
 ```sh
-firebaseHelper.firebase
+firebaseHelper
     .deleteUser(userId)
     .then(res => console.log(res));
 ```
 
-This will return a Promise<boolean>. 
+This will return a Promise<boolean>.
 
 ## 6. Delete users through an Array of User Ids
 
 ```sh
 let userList = ['userid-1', 'userid-2']
-firebaseHelper.firebase
+firebaseHelper
     .deleteUsers(userList);
 ```
 
-## 7. Create a new Firebase user 
+## 7. Create a new Firebase user
 
 ```sh
 let userInfo = {
@@ -75,7 +75,7 @@ let userInfo = {
     disabled: false
 };
 
-firebaseHelper.firebase
+firebaseHelper
     .createUser(userInfo)
     .then(res => console.log(res));
 ```
@@ -102,7 +102,7 @@ let userInfo = {
     disabled: false
 };
 
-firebaseHelper.firebase
+firebaseHelper
     .updateUser('user-id', userInfo);
 ```
 
@@ -111,21 +111,21 @@ firebaseHelper.firebase
 This will return an array of users. If you don't pass the max-number-of-user, the default is 1000.
 
 ```sh
-firebaseHelper.firebase
-    .getAllUsers('max-number-of-users - optional')    
+firebaseHelper
+    .getAllUsers('max-number-of-users - optional')
     .then(users => console.log(users));
 ```
 
 From this, you can delete users in bulk by combining two methods.
 
 ```sh
-// Get all users 
-firebaseHelper.firebase
-    .getAllUsers('max-number-of-users - optional')    
-    .then(users => {        
+// Get all users
+firebaseHelper
+    .getAllUsers('max-number-of-users - optional')
+    .then(users => {
         users.map(user => {
-            firebaseHelper.firebase
-                .deleteUsers([user.uid]);          
-        })   
+            firebaseHelper
+                .deleteUsers([user.uid]);
+        })
     })
 ```

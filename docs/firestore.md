@@ -26,10 +26,12 @@ firebaseHelper.firestore
 
 ## 2. Get Firestore Collection with Sub Collection
 
+Backup feature use the package (firestore-export-import)[https://www.npmjs.com/package/firestore-export-import]
+
 ```sh
 // Start exporting your collection
 firebaseHelper.firestore
-  .backup(db, 'collection-name', 'sub-collection-optional')
+  .backup('collection-name')
   .then(data => console.log(JSON.stringify(data)))
 ```
 
@@ -37,30 +39,32 @@ With this feature you can get and loop through all of your documents from a coll
 
 ```sh
 firebaseHelper.firestore
-  .backup(db, 'collection-name');
-  .then(data => {    
+  .backup('collection-name');
+  .then(data => {
     let docs = data['collection-name'];
     for (const key in docs) {
-        if (docs.hasOwnProperty(key)) {            
+        if (docs.hasOwnProperty(key)) {
             console.log('Doc id: ', key);
-            console.log('Document data: ', docs[key])                    
+            console.log('Document data: ', docs[key])
         }
     }
   })
 ```
 
-## 3. Import data to firestore 
+## 3. Import data to firestore
 
-This code will help you to import data from a JSON file to firestore
+This code will help you to import data from a JSON file to firestore.
+
+Restore feature use the package (firestore-export-import)[https://www.npmjs.com/package/firestore-export-import]
 
 ```sh
 // Start exporting your data
-firebaseHelper.firestore.restore(db, 'your-file-path.json');
+firebaseHelper.firestore.restore('your-file-path.json');
 ```
 
 This will return a Promise<{status: boolean, message: string}>.
 
-The JSON is formated as below. The collection name is __test__. __first-key__ and __second-key__ are document ids. 
+The JSON is formated as below. The collection name is **test**. **first-key** and **second-key** are document ids.
 
 ```sh
 {
@@ -133,9 +137,9 @@ This will return a Promise<boolean> and the document data if possible
 firebaseHelper.firestore
   .checkDocumentExists(db, 'collection-name', 'document-id')
   .then(result => {
-    // Boolean value of the result 
+    // Boolean value of the result
     console.log( result.exists ); // will return true or false
-    // If the document exist, you can get the document content 
+    // If the document exist, you can get the document content
     console.log( JSON.stringify(result.data) ); // return an object of or document
   });
 ```

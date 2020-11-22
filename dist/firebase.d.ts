@@ -7,10 +7,9 @@ export declare class FirebaseHelper {
     /**
      * Initialize Firebase App
      *
-     * @param {any} serviceAccount
-     * @param {any} databaseURL
+     * @param {admin.AppOptions} serviceAccount
      */
-    initializeApp(serviceAccount: string, databaseURL: string): {
+    initializeApp(serviceAccount: admin.AppOptions): {
         firestore: FirebaseFirestore.Firestore;
         realtime: admin.database.Database;
     };

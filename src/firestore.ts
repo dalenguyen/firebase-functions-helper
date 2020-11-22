@@ -1,4 +1,5 @@
-import * as fs from 'fs'
+import { backup, restore } from 'firestore-export-import';
+import { IImportOptions } from 'firestore-export-import/dist/helper';
 
 export class FirestoreHelper {
   /**
@@ -23,8 +24,8 @@ export class FirestoreHelper {
       .set(data)
       .then(() => true)
       .catch(function (error) {
-        return false
-      })
+        return false;
+      });
   }
 
   /**
@@ -45,11 +46,11 @@ export class FirestoreHelper {
       .collection(collectionName)
       .add(data)
       .then(function (docRef) {
-        return docRef
+        return docRef;
       })
       .catch(function (error) {
-        return error
-      })
+        return error;
+      });
   }
 
   /**
@@ -90,7 +91,7 @@ export class FirestoreHelper {
       .doc(docId)
       .update(data)
       .then(() => true)
-      .catch(err => err)
+      .catch((err) => err);
   }
 
   /**
@@ -112,11 +113,11 @@ export class FirestoreHelper {
       .doc(docId)
       .delete()
       .then(() => {
-        return { status: true, message: docId + ' successfully deleted!' }
+        return { status: true, message: docId + ' successfully deleted!' };
       })
-      .catch(error => {
-        return { status: false, message: error }
-      })
+      .catch((error) => {
+        return { status: false, message: error };
+      });
   }
 
   /**
@@ -141,11 +142,11 @@ export class FirestoreHelper {
       .doc(docIdTwo)
       .delete()
       .then(() => {
-        console.log(docIdTwo + ' successfully deleted!')
+        console.log(docIdTwo + ' successfully deleted!');
       })
-      .catch(error => {
-        console.error('Error removing document: ', error)
-      })
+      .catch((error) => {
+        console.error('Error removing document: ', error);
+      });
   }
 
   /**
@@ -163,24 +164,24 @@ export class FirestoreHelper {
     collectionName: string,
     docId: string
   ): Promise<any> {
-    const dbRef = db.collection(collectionName).doc(docId)
+    const dbRef = db.collection(collectionName).doc(docId);
     return dbRef
       .get()
-      .then(doc => {
+      .then((doc) => {
         if (!doc.exists) {
           return {
             exists: false,
-          }
+          };
         } else {
           return {
             exists: true,
             data: doc.data(),
-          }
+          };
         }
       })
-      .catch(err => {
-        console.log('Error getting document', err)
-      })
+      .catch((err) => {
+        console.log('Error getting document', err);
+      });
   }
 
   /**
@@ -197,21 +198,21 @@ export class FirestoreHelper {
     collectionName: string,
     documentId: string
   ): Promise<any> {
-    const docRef = db.collection(collectionName).doc(documentId)
+    const docRef = db.collection(collectionName).doc(documentId);
     return docRef
       .get()
       .then(function (doc) {
         if (doc.exists) {
-          return doc.data()
+          return doc.data();
         } else {
           // doc.data() will be undefined in this case
-          console.log('No such document!')
-          return false
+          console.log('No such document!');
+          return false;
         }
       })
       .catch(function (error) {
-        console.log('Error getting document:', error)
-      })
+        console.log('Error getting document:', error);
+      });
   }
 
   /**
@@ -231,39 +232,39 @@ export class FirestoreHelper {
     orderBy: Array<any> = null
   ): Promise<any> {
     return new Promise((resolve, reject) => {
-      const dataRef = db.collection(collectionName)
+      const dataRef = db.collection(collectionName);
 
-      let queryRef = dataRef
-      queryArray.forEach(query => {
-        queryRef = queryRef.where(query[0], query[1], query[2])
-      })
+      let queryRef = dataRef;
+      queryArray.forEach((query) => {
+        queryRef = queryRef.where(query[0], query[1], query[2]);
+      });
 
       if (orderBy !== null) {
         if (typeof orderBy[1] === undefined) {
-          orderBy[1] = 'asc'
+          orderBy[1] = 'asc';
         }
-        queryRef = queryRef.orderBy(orderBy[0], orderBy[1])
+        queryRef = queryRef.orderBy(orderBy[0], orderBy[1]);
       }
 
-      const results = {}
+      const results = {};
 
       queryRef
         .get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            results[doc.id] = doc.data()
-          })
+        .then((snapshot) => {
+          snapshot.forEach((doc) => {
+            results[doc.id] = doc.data();
+          });
           if (Object.keys(results).length > 0) {
-            resolve(results)
+            resolve(results);
           } else {
-            resolve('No such document!')
+            resolve('No such document!');
           }
         })
-        .catch(err => {
-          reject(false)
-          console.log('Error getting documents', err)
-        })
-    })
+        .catch((err) => {
+          reject(false);
+          console.log('Error getting documents', err);
+        });
+    });
   }
 
   /**
@@ -287,23 +288,23 @@ export class FirestoreHelper {
     size: number
   ): Promise<any> {
     return new Promise((resolve, reject) => {
-      const dataRef = dbp.collection(collectionName)
-      const limit = size || 10
-      const offset = (page - 1) * limit
-      console.log('Limit is ' + limit + ' offset is: ' + offset)
-      let queryRef = dataRef
-      queryArray.forEach(query => {
-        queryRef = queryRef.where(query[0], query[1], query[2])
-      })
+      const dataRef = dbp.collection(collectionName);
+      const limit = size || 10;
+      const offset = (page - 1) * limit;
+      console.log('Limit is ' + limit + ' offset is: ' + offset);
+      let queryRef = dataRef;
+      queryArray.forEach((query) => {
+        queryRef = queryRef.where(query[0], query[1], query[2]);
+      });
 
       if (orderBy !== null) {
         if (typeof orderBy[1] === undefined) {
-          orderBy[1] = 'asc'
+          orderBy[1] = 'asc';
         }
-        queryRef = queryRef.orderBy(orderBy[0], orderBy[1])
+        queryRef = queryRef.orderBy(orderBy[0], orderBy[1]);
       }
 
-      const results: { [k: string]: any } = {}
+      const results: { [k: string]: any } = {};
 
       queryRef
         .limit(limit)
@@ -311,97 +312,29 @@ export class FirestoreHelper {
         .get()
         .then((snapshot: any) => {
           snapshot.forEach((doc: any) => {
-            results[doc.id] = doc.data()
-          })
+            results[doc.id] = doc.data();
+          });
           if (Object.keys(results).length > 0) {
-            resolve(results)
+            resolve(results);
           } else {
-            resolve('No such document!')
+            resolve('No such document!');
           }
         })
         .catch((err: any) => {
-          reject(false)
-          console.log('Error getting documents', err)
-        })
-    })
+          reject(false);
+          console.log('Error getting documents', err);
+        });
+    });
   }
 
   /**
    * Backup data from Firestore
    *
-   * @param {*} db
    * @param {string} collectionName
-   * @param {string} subCollection
    * @return {json}
    */
-  backup(db: any, collectionName: string, subCollection: string = '') {
-    // console.log('Getting data from: ', collectionName);
-    return new Promise((resolve, reject) => {
-      const data = {}
-
-      data[collectionName] = {}
-
-      const results = db
-        .collection(collectionName)
-        .get()
-        .then(snapshot => {
-          snapshot.forEach(doc => {
-            data[collectionName][doc.id] = doc.data()
-          })
-          return data
-        })
-        .catch(error => {
-          console.log(error)
-        })
-
-      results
-        .then(dt => {
-          if (!subCollection) {
-            resolve(dt)
-          } else {
-            this.getSubCollection(db, data, dt, collectionName, subCollection)
-              .then(() => {
-                resolve(data)
-              })
-              .catch(error => {
-                console.log(error)
-                reject(error)
-              })
-          }
-        })
-        .catch(error => {
-          console.log(error)
-          reject(error)
-        })
-    })
-  }
-
-  /**
-   * Get sub collection from a document if possible
-   *
-   * @param {any} db
-   * @param {any} data
-   * @param {any} dt
-   * @param {any} collectionName
-   * @param {any} subCollection
-   */
-  async getSubCollection(
-    db: any,
-    data: Object,
-    dt: Object,
-    collectionName: string,
-    subCollection: string
-  ) {
-    for (const [key] of Object.entries([dt[collectionName]][0])) {
-      data[collectionName][key]['subCollection'] = {}
-      await this.addSubCollection(
-        db,
-        key,
-        data[collectionName][key]['subCollection'],
-        collectionName,
-        subCollection
-      )
-    }
+  backup(collectionName: string): Promise<any> {
+    return backup(collectionName);
   }
 
   /**
@@ -426,90 +359,27 @@ export class FirestoreHelper {
         .doc(key)
         .collection(subCollection)
         .get()
-        .then(snapshot => {
-          snapshot.forEach(subDoc => {
-            subData[subDoc.id] = subDoc.data()
-            resolve('Added data')
-          })
+        .then((snapshot) => {
+          snapshot.forEach((subDoc) => {
+            subData[subDoc.id] = subDoc.data();
+            resolve('Added data');
+          });
         })
-        .catch(error => {
-          reject(false)
-          console.log(error)
-        })
-    })
+        .catch((error) => {
+          reject(false);
+          console.log(error);
+        });
+    });
   }
 
   /**
    *Restore data to Firestore
    *
-   * @param {*} db
    * @param {*} fileName
    * @returns {Promise<any>}
    * @memberof FirestoreHelper
    */
-  restore(db, fileName): Promise<any> {
-    const that = this
-    return new Promise((resolve, reject) => {
-      fs.readFile(fileName, 'utf8', function (err, data) {
-        if (err) {
-          console.log(err)
-          return
-        }
-
-        // Turn string from file to an Array
-        const dataArray = JSON.parse(data)
-
-        that
-          .updateCollection(db, dataArray)
-          .then(() => {
-            resolve({
-              status: true,
-              message: 'Successfully import collection!',
-            })
-          })
-          .catch(error => {
-            reject({ status: false, message: error.message })
-          })
-      })
-    })
-  }
-
-  /**
-   * Update data to Firestore
-   *
-   * @param {any} db
-   * @param {any} dataArray
-   */
-  async updateCollection(db: any, dataArray: Object) {
-    for (const index in dataArray) {
-      for (const doc in dataArray[index]) {
-        if (dataArray[index].hasOwnProperty(doc)) {
-          await this.startUpdating(db, index, doc, dataArray[index][doc])
-        }
-      }
-    }
-  }
-
-  /**
-   * Write data to document
-   *
-   * @param {any} db
-   * @param {any} collectionName
-   * @param {any} doc
-   * @param {any} data
-   * @returns
-   */
-  startUpdating(db: any, collectionName: string, doc: string, data: Object) {
-    return new Promise(resolve => {
-      return db
-        .collection(collectionName)
-        .doc(doc)
-        .set(data)
-        .then(() => {
-          console.log(`${doc} is succeeded adding to Firestore!`)
-          resolve('Data wrote!')
-        })
-        .catch(error => console.log(error))
-    })
+  restore(fileName, options?: IImportOptions): Promise<any> {
+    return restore(fileName, options);
   }
 }

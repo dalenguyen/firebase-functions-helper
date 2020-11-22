@@ -11,6 +11,13 @@
 
 ---
 
+## [0.10.0] - 2020-11-21
+
+#### - :boom: [Breaking Change]
+
+- Utilized backup & restore from (firestore-export-import)[https://www.npmjs.com/package/firestore-export-import]
+- Import separate features rather entire package (please read the docs & test files)
+
 ## [0.9.0] - 2020-11-21
 
 #### - :nail_care: [Polish]

@@ -3,7 +3,7 @@
 Before starting with Realtime Database, we have to initialize Firebase App and get Realtime Database.
 
 ```sh
-const firebaseHelper = require('firebase-functions-helper');
+const { firebaseHelper, realtimeHelper } = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
@@ -18,14 +18,14 @@ const db = app.realtime;
 The result will be a Promise of an array or an object of data.
 
 ```sh
-firebaseHelper.realtime
+realtimeHelper
     .getData(db, 'data-path')
     .then(data => console.log(data);)
 ```
 
 ## 2. Save Data
 
-You will have two options that help to replace entire data path or keep and replace the data. This function will return a Promise<object>: __{status: boolean, message: string}__
+You will have two options that help to replace entire data path or keep and replace the data. This function will return a Promise<object>: **{status: boolean, message: string}**
 
 ```sh
 const data = {
@@ -38,17 +38,17 @@ const data = {
 }
 
 // Remove everything and add new data
-firebaseHelper.realtime
+realtimeHelper
     .saveData(db, 'data-path', data, true);
 
 // Replace or add new data without remove the old data
-firebaseHelper.realtime
-    .saveData(db, 'data-path', data, false);    
+realtimeHelper
+    .saveData(db, 'data-path', data, false);
 ```
 
 ## 3. Updated Saved Data
 
-This function will have you to add extra information to an existing data. If the path in data is incorrect, it will create a new data. This function will return a Promise<object>: __{status: boolean, message: string}__
+This function will have you to add extra information to an existing data. If the path in data is incorrect, it will create a new data. This function will return a Promise<object>: **{status: boolean, message: string}**
 
 ```sh
 const updatedData = {
@@ -57,15 +57,15 @@ const updatedData = {
 }
 
 // Add location info to td and rbc
-firebaseHelper.realtime
+realtimeHelper
     .updateData(db, 'banks', updatedData);
 ```
 
 ## 4. Delete Data
 
-This function will delete all data under a path. It will return a Promise<object>: __{status: boolean, message: string}__
+This function will delete all data under a path. It will return a Promise<object>: **{status: boolean, message: string}**
 
 ```sh
-firebaseHelper.realtime
+realtimeHelper
     .deleteData(db, 'data-path');
 ```

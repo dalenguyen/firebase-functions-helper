@@ -1,6 +1,6 @@
 {
   "name": "firebase-functions-helper",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "A helper NPM package for Firebase Cloud Functions",
   "author": {
     "name": "Dale Nguyen",
@@ -31,7 +31,8 @@
     "prod": "npm run lint && npm run build && npm run test"
   },
   "dependencies": {
-    "firebase-admin": "^9.4.1"
+    "firebase-admin": "^9.4.1",
+    "firestore-export-import": "^0.8.0"
   },
   "deprecated": false,
   "devDependencies": {

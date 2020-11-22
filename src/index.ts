@@ -6,6 +6,4 @@ const firebaseHelper: FirebaseHelper = new FirebaseHelper();
 const firestoreHelper: FirestoreHelper = new FirestoreHelper();
 const realtimeHelper: RealtimeHelper = new RealtimeHelper();
 
-exports.firebase = firebaseHelper;
-exports.firestore = firestoreHelper;
-exports.realtime = realtimeHelper;
+export { firebaseHelper, firestoreHelper, realtimeHelper };

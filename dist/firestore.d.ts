@@ -1,3 +1,4 @@
+import { IImportOptions } from 'firestore-export-import/dist/helper';
 export declare class FirestoreHelper {
     /**
      *Create a document with id in firestore
@@ -109,22 +110,10 @@ export declare class FirestoreHelper {
     /**
      * Backup data from Firestore
      *
-     * @param {*} db
      * @param {string} collectionName
-     * @param {string} subCollection
      * @return {json}
      */
-    backup(db: any, collectionName: string, subCollection?: string): Promise<unknown>;
-    /**
-     * Get sub collection from a document if possible
-     *
-     * @param {any} db
-     * @param {any} data
-     * @param {any} dt
-     * @param {any} collectionName
-     * @param {any} subCollection
-     */
-    getSubCollection(db: any, data: Object, dt: Object, collectionName: string, subCollection: string): Promise<void>;
+    backup(collectionName: string): Promise<any>;
     /**
      * Add sub collection to data Object if possible
      *
@@ -139,27 +128,9 @@ export declare class FirestoreHelper {
     /**
      *Restore data to Firestore
      *
-     * @param {*} db
      * @param {*} fileName
      * @returns {Promise<any>}
      * @memberof FirestoreHelper
      */
-    restore(db: any, fileName: any): Promise<any>;
-    /**
-     * Update data to Firestore
-     *
-     * @param {any} db
-     * @param {any} dataArray
-     */
-    updateCollection(db: any, dataArray: Object): Promise<void>;
-    /**
-     * Write data to document
-     *
-     * @param {any} db
-     * @param {any} collectionName
-     * @param {any} doc
-     * @param {any} data
-     * @returns
-     */
-    startUpdating(db: any, collectionName: string, doc: string, data: Object): Promise<unknown>;
+    restore(fileName: any, options?: IImportOptions): Promise<any>;
 }
