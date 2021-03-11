@@ -11,6 +11,12 @@
 
 ---
 
+## [0.11.0] - 2021-03-10
+
+#### - :nail_care: [Polish]
+
+- Update packages
+
 ## [0.10.0] - 2020-11-21
 
 #### - :boom: [Breaking Change]
