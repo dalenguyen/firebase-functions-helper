@@ -7,7 +7,7 @@ const { firebaseHelper, realtimeHelper } = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
-const app = firebaseHelper.firebase.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 
 // Get Realtime Database
 const db = app.realtime;
