@@ -3,11 +3,11 @@
 Before starting with Firestore, we have to initialize Firebase App and get Firestore DB.
 
 ```sh
-const firebaseHelper = require('firebase-functions-helper');
+const {firebaseHelper, firestoreHelper} = require('firebase-functions-helper');
 const serviceAccount = require('./serviceAccountKey.json');
 
 // Initialize Firebase App
-const app = firebaseHelper.firebase.initializeApp(serviceAccount, databaseURL);
+const app = firebaseHelper.initializeApp(serviceAccount, databaseURL);
 
 // Get Firestore DB
 const db = app.firestore;
@@ -19,7 +19,7 @@ db.settings({ timestampsInSnapshots: true });
 The result will be a Promise that returns _content of a document_ or _false_ if document doesn't exist.
 
 ```sh
-firebaseHelper.firestore
+firestoreHelper
   .getDocument(db, 'collection-name', 'document-id')
   .then(doc => console.log(doc));
 ```
@@ -30,7 +30,7 @@ Backup feature use the package (firestore-export-import)[https://www.npmjs.com/p
 
 ```sh
 // Start exporting your collection
-firebaseHelper.firestore
+firestoreHelper
   .backup('collection-name')
   .then(data => console.log(JSON.stringify(data)))
 ```
@@ -38,7 +38,7 @@ firebaseHelper.firestore
 With this feature you can get and loop through all of your documents from a collection
 
 ```sh
-firebaseHelper.firestore
+firestoreHelper
   .backup('collection-name');
   .then(data => {
     let docs = data['collection-name'];
@@ -59,7 +59,7 @@ Restore feature use the package (firestore-export-import)[https://www.npmjs.com/
 
 ```sh
 // Start exporting your data
-firebaseHelper.firestore.restore('your-file-path.json');
+firestoreHelper.restore('your-file-path.json');
 ```
 
 This will return a Promise<{status: boolean, message: string}>.
@@ -92,7 +92,7 @@ The JSON is formated as below. The collection name is **test**. **first-key** an
 ## 4. Create a document with id in firestore
 
 ```sh
-firebaseHelper.firestore
+firestoreHelper
   .createDocumentWithID(db, 'collection-name', 'document-id', data);
 ```
 
@@ -101,7 +101,7 @@ This will return a Promise<boolean>.
 ## 5. Create a new document without an ID
 
 ```sh
-firebaseHelper.firestore
+firestoreHelper
   .createNewDocument(db, 'collection-name', data)
   .then(docRef => console.log(docRef.id));
 ```
@@ -114,7 +114,7 @@ This action will only update the current key inside the document, if the data do
 
 ```sh
 let data = {key: value};
-firebaseHelper.firestore
+firestoreHelper
   .updateDocument(db, 'collection-name', 'document-id', data);
 ```
 
@@ -123,7 +123,7 @@ This will return a Promise. True if success and will throw an error if fail.
 ## 7. Delete a document
 
 ```sh
-firebaseHelper.firestore
+firestoreHelper
   .deleteDocument(db, 'collection-name', 'document-id');
 ```
 
@@ -134,7 +134,7 @@ This will return a Promise<{status: bolean, message: string}>
 This will return a Promise<boolean> and the document data if possible
 
 ```sh
-firebaseHelper.firestore
+firestoreHelper
   .checkDocumentExists(db, 'collection-name', 'document-id')
   .then(result => {
     // Boolean value of the result
@@ -155,7 +155,7 @@ The orderBy parameter is OPTIONAL.
 const queryArray = [['website', '==', 'dalenguyen.me'], ['email', '==', 'dungnq@itbox4vn.com']];
 const orderBy = ['email', 'desc'];
 
-firebaseHelper.firestore
+firestoreHelper
   .queryData(db, 'collection-name', queryArray, orderby)
   .then(docs => console.log(docs));
 ```
@@ -173,7 +173,7 @@ const orderBy = ['email', 'desc'];
 const size = 10;
 const page = 1;
 
-firebaseHelper.firestore
+firestoreHelper
   .queryDataWithPagiation(db, 'collection-name', queryArray, orderby, page, size)
   .then(docs => console.log(docs));
 ```
